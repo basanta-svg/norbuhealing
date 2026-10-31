@@ -237,3 +237,31 @@
 /* swiper pagination dots */
 .swiper-pagination-bullet { background: var(--color-plum) !important; opacity: .3; width: 10px; height: 10px; }
 .swiper-pagination-bullet-active { opacity: 1; }
+
+/* ---- phones: smaller headings and text ----
+   Written as !important inside the base layer on purpose: for important rules the earlier layer wins, so this also beats
+   the one-off size utilities (!text-3xl, !text-[1.35rem] ...) used on individual headings. */
+@layer base {
+  @media (max-width: 639px) {
+    body { font-size: .9375rem !important; }
+    h1 { font-size: 1.85rem !important; }
+    h2 { font-size: 1.4rem !important; line-height: 1.22 !important; }
+    h3 { font-size: 1.05rem !important; }
+    .hero-h1 { font-size: 1.5rem !important; }
+    .hero-lead { font-size: .9rem !important; }
+    .hero-sub { font-size: .8125rem !important; }
+    .label { font-size: .6875rem !important; letter-spacing: .3em !important; }
+    .btn { font-size: .875rem !important; padding: .7rem 1.25rem !important; }
+    p, li, dd { font-size: max(.875rem, 1em); }
+    .vm-text { font-size: 1.1rem !important; line-height: 1.5 !important; }
+    .vm-title { font-size: .6875rem !important; }
+    .dept-name { font-size: .9rem !important; }
+    .dept-blurb { font-size: .8125rem !important; }
+    .element-card p, .why-card p, .ph-copy p { font-size: .875rem !important; }
+    .serif-quote { font-size: 1.5rem !important; }
+    .text-3xl, .text-2xl, .text-xl { font-size: 1.25rem !important; }
+    .hero-eyebrow { font-size: .6875rem !important; }
+    .field-input, .fu-trigger { font-size: .9375rem !important; }
+    .search-bar input { font-size: 1rem !important; }
+  }
+}
