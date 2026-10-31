@@ -1,0 +1,169 @@
+---
+// Floating "N" button that opens a small chat-style panel: book, WhatsApp and contact details.
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import nMark from '../../assets/logos/n-mark-white.png';
+import { site, departments } from '../../data/site';
+const wa = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(site.whatsappText)}`;
+---
+<div id="chat" class="chat">
+  <section id="chat-panel" class="chat-panel" role="dialog" aria-label="Contact Norbu Healing" aria-hidden="true" hidden>
+    <header class="chat-head">
+      <span class="chat-avatar"><Image src={nMark} alt="" class="h-5 w-auto" width={20} /></span>
+      <div class="min-w-0 flex-1">
+        <p class="chat-name">Norbu Healing</p>
+        <p class="chat-status"><span class="chat-dot" aria-hidden="true"></span>Open daily {site.hours}</p>
+      </div>
+      <button type="button" class="chat-x" data-chat-close aria-label="Close chat"><Icon name="norbu-close" class="h-5 w-5" /></button>
+    </header>
+
+    <div class="chat-body" id="chat-body">
+      <div class="chat-typing" data-typing aria-hidden="true"><span></span><span></span><span></span></div>
+
+      <div class="chat-msg" data-msg hidden>
+        <p>Kuzuzangpo la! 👋</p>
+        <p class="mt-1">Welcome to Norbu Healing. How can we help you today?</p>
+      </div>
+
+      <div class="chat-actions" data-msg hidden>
+        <a href="/book/" class="chat-btn chat-btn-primary"><Icon name="norbu-booking" class="h-5 w-5" />Book now</a>
+        <a href={wa} target="_blank" rel="noopener" class="chat-btn"><Icon name="norbu-whatsapp" class="h-5 w-5" />Chat on WhatsApp</a>
+        <a href="/contact/" class="chat-btn"><Icon name="norbu-email" class="h-5 w-5" />Send an enquiry</a>
+      </div>
+
+      <div class="chat-msg" data-msg hidden>
+        <p class="chat-label">Call us directly</p>
+        <ul class="mt-2 space-y-1.5">
+          {departments.map((d) => (
+            <li class="chat-row">
+              <Icon name="norbu-phone" class="h-5 w-5 shrink-0" />
+              <span class="min-w-0"><span class="mr-2 text-[0.8rem] text-gray-600">{d.short === 'Healing' ? 'Healing' : d.short}</span>
+              <a href={`tel:${d.phones[0]}`} class="font-semibold text-black hover:text-plum hover:underline">{d.phones.join(' / ')}</a></span>
+            </li>
+          ))}
+          <li class="chat-row"><Icon name="norbu-email" class="h-5 w-5 shrink-0" /><span class="min-w-0"><span class="block text-[0.8rem] text-gray-600">Email</span><a href={`mailto:${site.email}`} class="font-semibold text-black hover:text-plum hover:underline">{site.email}</a></span></li>
+          <li class="chat-row"><Icon name="norbu-location" class="h-5 w-5 shrink-0" /><span class="min-w-0"><span class="block text-[0.8rem] text-gray-600">Visit us</span><a href={site.directionsUrl} target="_blank" rel="noopener" class="font-semibold text-black hover:text-plum hover:underline">{site.address}</a></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <button type="button" id="chat-toggle" class="chat-toggle" aria-label="Chat with Norbu Healing" aria-expanded="false" aria-controls="chat-panel">
+    <Image src={nMark} alt="" class="chat-n" width={26} />
+    <Icon name="norbu-close" class="chat-close-icon h-6 w-6" aria-hidden="true" />
+  </button>
+</div>
+
+<style is:global>
+  .chat { position: fixed; z-index: 45; right: 1rem; bottom: 5rem; display: flex; flex-direction: column; align-items: flex-end; gap: .75rem; }
+  @media (min-width: 1280px) { .chat { right: 1.5rem; bottom: 1.5rem; } }
+  /* on the home page the department strip sits at the bottom of the first screen, so the button floats just above it on phones */
+  @media (max-width: 1279px) { body:has(.hero-strip) .chat { bottom: 9.75rem; } }
+  @media (min-width: 1280px) { body:has(.hero-strip) .chat { bottom: 9rem; } }
+
+  .chat-toggle {
+    position: relative; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 999px;
+    background: var(--color-plum); color: #fff; border: 2px solid #fff; box-shadow: 0 8px 24px rgb(0 0 0 / 0.3), 0 0 0 4px rgb(83 0 53 / .25);
+    transition: transform .2s, background-color .2s;
+  }
+  .chat-toggle:hover { transform: scale(1.06); background: var(--color-plum-hover); }
+  .chat-toggle::after {
+    content: ''; position: absolute; inset: -6px; border-radius: 999px; border: 2px solid var(--color-plum); opacity: 0;
+    animation: chat-ping 2.6s ease-out 1.5s 3;
+  }
+  @keyframes chat-ping { 0% { transform: scale(.9); opacity: .55; } 100% { transform: scale(1.35); opacity: 0; } }
+  .chat-n { width: auto; height: 1.65rem; }
+  .chat-close-icon { display: none; }
+  .chat-toggle[aria-expanded='true'] .chat-n { display: none; }
+  .chat-toggle[aria-expanded='true'] .chat-close-icon { display: block; }
+  .chat-toggle[aria-expanded='true']::after { display: none; }
+
+  .chat-panel {
+    width: min(calc(100vw - 2rem), 22.5rem); max-height: min(38rem, calc(100svh - 10rem)); display: flex; flex-direction: column;
+    background: #fff; border: 1px solid var(--color-plum-border); border-radius: 16px; overflow: hidden; box-shadow: 0 18px 60px rgb(0 0 0 / 0.22);
+    transform-origin: bottom right; animation: chat-in .5s cubic-bezier(.22, 1, .36, 1) both;
+  }
+  .chat-panel[hidden] { display: none; }
+  @keyframes chat-in { from { opacity: 0; transform: translateY(18px) scale(.94); } to { opacity: 1; transform: none; } }
+  .chat-panel.is-closing { animation: chat-out .28s ease forwards; }
+  @keyframes chat-out { to { opacity: 0; transform: translateY(12px) scale(.96); } }
+  .chat-head { display: flex; align-items: center; gap: .75rem; padding: .9rem 1rem; border-bottom: 1px solid var(--color-plum-border); }
+  .chat-avatar { display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: var(--color-plum); flex-shrink: 0; }
+  .chat-name { font-weight: 700; color: var(--color-plum); line-height: 1.2; }
+  .chat-status { display: flex; align-items: center; gap: .4rem; font-size: .75rem; color: #4a4a4a; }
+  .chat-dot { width: .5rem; height: .5rem; border-radius: 999px; background: #2e9e5b; flex-shrink: 0; }
+  .chat-x { display: flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 999px; color: var(--color-plum); border: 1px solid var(--color-plum-border); flex-shrink: 0; }
+  .chat-x:hover { background: var(--color-plum-section); }
+  .chat-body { padding: .9rem; overflow-y: auto; display: flex; flex-direction: column; gap: .75rem; background: #fff; }
+  .chat-msg { align-self: flex-start; max-width: 92%; background: var(--color-plum-section); border-radius: 4px 16px 16px 16px; padding: .75rem 1rem; font-size: .9375rem; line-height: 1.45; animation: chat-pop .3s ease-out; }
+  .chat-msg[hidden], .chat-actions[hidden], .chat-typing[hidden] { display: none; }
+  @keyframes chat-pop { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .chat-label { font-size: .6875rem; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: var(--color-plum); }
+  .chat-row { display: flex; align-items: flex-start; gap: .6rem; color: var(--color-plum); }
+  .chat-row > svg { margin-top: .15rem; }
+  .chat-actions { display: flex; flex-direction: column; gap: .5rem; animation: chat-pop .3s ease-out; }
+  .chat-btn {
+    display: flex; align-items: center; gap: .6rem; padding: .7rem 1.1rem; border-radius: 999px; font-size: .9375rem; font-weight: 600;
+    border: 1.5px solid var(--color-plum); color: var(--color-plum); background: #fff; transition: background-color .2s, color .2s;
+  }
+  .chat-btn:hover { background: var(--color-plum-section); }
+  .chat-btn-primary { background: var(--color-plum); color: #fff; }
+  .chat-btn-primary:hover { background: var(--color-plum-hover); }
+  .chat-typing { align-self: flex-start; display: inline-flex; gap: .3rem; padding: .85rem 1rem; background: var(--color-plum-section); border-radius: 4px 16px 16px 16px; }
+  .chat-typing span { width: .4rem; height: .4rem; border-radius: 999px; background: var(--color-plum-muted); animation: chat-dot 1s infinite ease-in-out; }
+  .chat-typing span:nth-child(2) { animation-delay: .15s; }
+  .chat-typing span:nth-child(3) { animation-delay: .3s; }
+  @keyframes chat-dot { 0%, 60%, 100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-4px); opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .chat-panel, .chat-msg, .chat-actions, .chat-toggle::after { animation: none; } .chat-typing span { animation: none; } }
+</style>
+
+<script>
+  const root = document.getElementById('chat');
+  if (root) {
+    const toggle = document.getElementById('chat-toggle')!;
+    const panel = document.getElementById('chat-panel')!;
+    const typing = panel.querySelector<HTMLElement>('[data-typing]')!;
+    const msgs = [...panel.querySelectorAll<HTMLElement>('[data-msg]')];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let timers: number[] = [];
+    let played = false;
+
+    // messages arrive one after another, like a chat, the first time the panel is opened
+    const play = () => {
+      if (played) return;
+      played = true;
+      if (reduce) { typing.hidden = true; msgs.forEach((m) => (m.hidden = false)); return; }
+      msgs.forEach((m, i) => {
+        timers.push(window.setTimeout(() => {
+          typing.hidden = i === msgs.length - 1;
+          m.hidden = false;
+        }, 700 + i * 650));
+      });
+    };
+    let closeTimer = 0;
+    const set = (open: boolean) => {
+      window.clearTimeout(closeTimer);
+      panel.classList.remove('is-closing');
+      if (!open && !panel.hidden && !reduce) {
+        // ease out first, then hide
+        panel.classList.add('is-closing');
+        closeTimer = window.setTimeout(() => { panel.hidden = true; panel.classList.remove('is-closing'); }, 280);
+        panel.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Chat with Norbu Healing');
+        return;
+      }
+      panel.hidden = !open;
+      panel.setAttribute('aria-hidden', String(!open));
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close chat' : 'Chat with Norbu Healing');
+      if (open) play();
+    };
+    toggle.addEventListener('click', () => set(panel.hidden));
+    panel.querySelector('[data-chat-close]')!.addEventListener('click', () => { set(false); toggle.focus(); });
+    addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) { set(false); toggle.focus(); } });
+    document.addEventListener('click', (e) => { if (!panel.hidden && !root.contains(e.target as Node)) set(false); });
+    // opening the search or the mobile menu tucks the chat away
+    document.querySelectorAll('[data-search-open], [data-menu-open], #menu-open').forEach((b) => b.addEventListener('click', () => set(false)));
+  }
+</script>

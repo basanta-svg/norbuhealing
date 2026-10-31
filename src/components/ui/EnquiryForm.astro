@@ -1,0 +1,85 @@
+---
+import { site, healingServiceNames, salonServiceNames, courseNames } from '../../data/site';
+import Button from './Button.astro';
+interface Props { kind: 'healing' | 'salon' | 'hotel' | 'institute'; light?: boolean; id?: string }
+const { kind, light = false, id = kind } = Astro.props;
+const lbl = ['label', light ? 'text-sage-900' : 'text-white'];
+const cfg = {
+  healing: { aria: 'Healing & wellness booking enquiry', cta: 'Request a Healing Session', note: 'Submitting this form sends an enquiry, not a confirmed appointment. The centre will contact you to confirm.' },
+  salon: { aria: 'Salon booking enquiry', cta: 'Request a Salon Service', note: 'We will confirm receipt of your request. Your appointment is only confirmed once the salon has accepted it.' },
+  hotel: { aria: 'Hotel availability enquiry', cta: 'Check Availability', note: 'This is an availability enquiry, not a live booking. The hotel team will confirm availability and rates with you directly.' },
+  institute: { aria: 'Course application', cta: 'Apply Now', note: 'After you apply, the institute will follow up to confirm eligibility, course availability, fees and next steps.' },
+}[kind];
+const services = kind === 'healing' ? healingServiceNames : kind === 'salon' ? salonServiceNames : [];
+const field = (n: string) => `${id}-${n}`;
+---
+<form data-form data-kind={kind} data-endpoint={site.formEndpoint || undefined} novalidate class:list={['grid gap-5 sm:grid-cols-2', light && 'field-light']} aria-label={cfg.aria}>
+  <input type="hidden" name="enquiry_type" value={kind} />
+
+  {(kind === 'healing' || kind === 'salon') && (<>
+    <div class="field sm:col-span-2">
+      <label for={field('service')} class:list={lbl}>Service*</label>
+      <select class="field-input" id={field('service')} name="service" required>
+        <option value="">Select a service</option>
+        {services.map((s) => <option value={s}>{s}</option>)}
+      </select><p class="field-error"></p>
+    </div>
+    <div class="field"><label for={field('date')} class:list={lbl}>Preferred date*</label><input class="field-input" id={field('date')} name="date" type="date" required /><p class="field-error"></p></div>
+    <div class="field"><label for={field('time')} class:list={lbl}>Preferred time*</label><input class="field-input" id={field('time')} name="time" type="time" required /><p class="field-error"></p></div>
+  </>)}
+
+  {kind === 'hotel' && (<>
+    <div class="field"><label for={field('in')} class:list={lbl}>Check-in date*</label><input class="field-input" id={field('in')} name="check_in" type="date" required /><p class="field-error"></p></div>
+    <div class="field"><label for={field('out')} class:list={lbl}>Check-out date*</label><input class="field-input" id={field('out')} name="check_out" type="date" required /><p class="field-error"></p></div>
+    <div class="field"><label for={field('guests')} class:list={lbl}>Number of guests*</label><input class="field-input" id={field('guests')} name="guests" type="number" min="1" max="10" required placeholder="2" /><p class="field-error"></p></div>
+    <div class="field">
+      <label for={field('room')} class:list={lbl}>Room type</label>
+      <select class="field-input" id={field('room')} name="room_type"><option>Not sure</option><option>Deluxe Couple Room</option><option>Deluxe Twin Room</option></select><p class="field-error"></p>
+    </div>
+  </>)}
+
+  {kind === 'institute' && (<>
+    <div class="field">
+      <label for={field('course')} class:list={lbl}>Course interested in*</label>
+      <select class="field-input" id={field('course')} name="course" required>
+        <option value="">Select a course</option>
+        {courseNames.map((c) => <option value={c}>{c}</option>)}
+      </select><p class="field-error"></p>
+    </div>
+    <div class="field"><label for={field('intake')} class:list={lbl}>Preferred intake</label><input class="field-input" id={field('intake')} name="intake" placeholder="e.g. next available" /><p class="field-error"></p></div>
+  </>)}
+
+  <div class="field"><label for={field('name')} class:list={lbl}>Full name*</label><input class="field-input" id={field('name')} name="name" required autocomplete="name" /><p class="field-error"></p></div>
+  <div class="field"><label for={field('phone')} class:list={lbl}>Phone number*</label><input class="field-input" id={field('phone')} name="phone" type="tel" required autocomplete="tel" placeholder="+975 …" /><p class="field-error"></p></div>
+  <div class="field sm:col-span-2"><label for={field('email')} class:list={lbl}>Email address*</label><input class="field-input" id={field('email')} name="email" type="email" required autocomplete="email" /><p class="field-error"></p></div>
+
+  {kind === 'institute' && (<>
+    <div class="field"><label for={field('edu')} class:list={lbl}>Education</label><input class="field-input" id={field('edu')} name="education" placeholder="e.g. Grade 12" /><p class="field-error"></p></div>
+    <div class="field"><label for={field('exp')} class:list={lbl}>Previous experience</label><input class="field-input" id={field('exp')} name="experience" /><p class="field-error"></p></div>
+  </>)}
+
+  <div class="field sm:col-span-2">
+    <label for={field('msg')} class:list={lbl}>{kind === 'institute' ? 'Message' : 'Special requests'}</label>
+    <textarea class="field-input" id={field('msg')} name="message" rows="3"></textarea><p class="field-error"></p>
+  </div>
+
+  <div class="sm:col-span-2">
+    <Button type="submit" variant={light ? 'dark' : 'light'} class="w-full">{cfg.cta}</Button>
+    <p class:list={['mt-4 text-center text-sm', light ? 'text-gray-600' : 'text-white/70']}>{cfg.note} Your details are used only to respond to your enquiry.</p>
+    <p class:list={['field-error mt-3 text-center !text-base', light && '!text-sage-900']} data-form-msg role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<script>
+  // Prefill ?service= / ?course= / ?room= on any enquiry form.
+  const q = new URLSearchParams(location.search);
+  const set = (name: string, v: string | null, kinds: string[]) => {
+    if (!v) return;
+    document.querySelectorAll<HTMLSelectElement>(kinds.map((k) => `form[data-kind="${k}"] select[name="${name}"]`).join(',')).forEach((s) => {
+      if ([...s.options].some((o) => o.value === v)) s.value = v;
+    });
+  };
+  set('service', q.get('service'), ['healing', 'salon']);
+  set('course', q.get('course'), ['institute']);
+  set('room_type', q.get('room'), ['hotel']);
+</script>

@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import centre from '../../assets/logos/transparent-Norbu-Healing-Arts-Centre.png';
+import hotel from '../../assets/logos/transparent-Norbu-Healing-Hotel.png';
+import salon from '../../assets/logos/transparent-Norbu-Healing-Salon.png';
+import institute from '../../assets/logos/transparent-Norbu-International-Wellness-Institute.png';
+import main from '../../assets/logos/transparent-Norbu.png';
+import wCentre from '../../assets/logos/white-Norbu-Healing-Arts-Centre.png';
+import wHotel from '../../assets/logos/white-Norbu-Healing-Hotel.png';
+import wSalon from '../../assets/logos/white-Norbu-Healing-Salon.png';
+import wInstitute from '../../assets/logos/white-Norbu-International-Wellness-Institute.png';
+import wMain from '../../assets/logos/white-Norbu.png';
+
+interface Props { class?: string; variant?: 'white' | 'colour'; brand?: 'main' | 'healing' | 'hotel' | 'salon' | 'institute'; link?: boolean }
+const { class: cls = '', variant = 'white', brand = 'main', link = true } = Astro.props;
+const logos = {
+  colour: { main, healing: centre, hotel, salon, institute },
+  white: { main: wMain, healing: wCentre, hotel: wHotel, salon: wSalon, institute: wInstitute },
+};
+const src = logos[variant][brand];
+---
+{link ? (
+  <a href="/" class:list={['inline-flex items-center', cls]} aria-label="Norbu Healing home">
+    <Image src={src} alt="Norbu Healing" class="h-12 w-auto" widths={[240, 480]} sizes="160px" loading="eager" />
+  </a>
+) : (
+  <Image src={src} alt="Norbu Healing" class:list={['h-12 w-auto', cls]} widths={[240, 480]} sizes="160px" />
+)}

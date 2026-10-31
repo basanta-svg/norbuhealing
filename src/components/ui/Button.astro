@@ -1,0 +1,11 @@
+---
+import { Icon } from 'astro-icon/components';
+interface Props { href?: string; variant?: 'dark' | 'light' | 'outline' | 'outline-dark'; arrow?: boolean; type?: 'button' | 'submit'; class?: string }
+const { href, variant = 'dark', arrow = false, type = 'button', class: cls = '', ...rest } = Astro.props;
+const v = { dark: 'btn-dark', light: 'btn-light', outline: 'btn-outline', 'outline-dark': 'btn-outline btn-outline-dark' }[variant];
+const Tag = href ? 'a' : 'button';
+---
+<Tag href={href} type={href ? undefined : type} class:list={['btn', v, cls]} {...rest}>
+  <slot />
+  {arrow && <Icon name="norbu-arrow-right" class="h-4 w-4" />}
+</Tag>

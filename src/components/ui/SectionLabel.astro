@@ -1,0 +1,5 @@
+---
+interface Props { class?: string; light?: boolean }
+const { class: cls = '', light = false } = Astro.props;
+---
+<p class:list={['label', light ? 'text-white/80' : 'text-gold-600', cls]}><slot /></p>

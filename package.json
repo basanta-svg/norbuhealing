@@ -1,0 +1,32 @@
+{
+  "name": "norbu-healing-website",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/apply-base.mjs",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/gotu": "^5.3.0",
+    "@fontsource/lato": "^5.3.0",
+    "@iconify-json/lucide": "^1.2.149",
+    "@iconify-json/ri": "^1.2.10",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.4",
+    "astro-icon": "^1.2.0",
+    "lenis": "^1.3.27",
+    "sharp": "^0.35.5",
+    "swiper": "^14.3.0",
+    "tailwindcss": "^4.3.3"
+  }
+}

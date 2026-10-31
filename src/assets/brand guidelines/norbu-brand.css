@@ -1,0 +1,39 @@
+/* Norbu brand tokens · Web edition 2026
+   Fonts: <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet"> */
+:root{
+  /* Brand colours */
+  --norbu-plum:#530035;
+  --norbu-white:#FFFFFF;
+  --norbu-black:#000000;
+  /* Interface tints of plum (UI only, not brand colours) */
+  --plum-hover:#3A0025;
+  --plum-muted:#7E4D6E;
+  --plum-disabled:#BA99AE;
+  --plum-border:#DCCBD6;
+  --plum-section:#F5EFF3;
+  /* Signature gradient */
+  --norbu-dusk:linear-gradient(135deg,#530035 0%,#8A4A72 55%,#E9C9D3 100%);
+  /* Type */
+  --font-sans:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif;
+  --font-serif:"Cormorant Garamond",Georgia,serif;
+  --fs-hero:clamp(2.5rem,5vw,4rem);   /* Cormorant italic */
+  --fs-h1:clamp(2rem,3.5vw,2.75rem);   /* Jakarta 800 uppercase */
+  --fs-h2:clamp(1.5rem,2.5vw,1.875rem);/* Jakarta 700 */
+  --fs-body:clamp(1rem,1.1vw,1.0625rem);
+  --fs-small:.875rem;
+  --fs-eyebrow:.8125rem;               /* 700, letter-spacing .4em, uppercase */
+  /* Shape & space */
+  --radius-card:16px; --radius-field:10px; --radius-pill:999px;
+  --space:8px; --section-y:96px; --section-y-mobile:64px; --content-max:1200px;
+}
+body{font-family:var(--font-sans);font-size:var(--fs-body);line-height:1.6;color:var(--norbu-black);background:var(--norbu-white)}
+h1,h2,h3{color:var(--norbu-plum);line-height:1.1}
+.eyebrow{font-size:var(--fs-eyebrow);font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--norbu-plum)}
+.hero-title{font-family:var(--font-serif);font-style:italic;font-weight:500;font-size:var(--fs-hero)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font:600 .9375rem var(--font-sans);padding:.75rem 1.4rem;border-radius:var(--radius-pill);border:1.5px solid var(--norbu-plum);text-decoration:none;transition:background .2s,color .2s}
+.btn-primary{background:var(--norbu-plum);color:#fff}
+.btn-primary:hover{background:var(--plum-hover);border-color:var(--plum-hover)}
+.btn-secondary{background:transparent;color:var(--norbu-plum)}
+.btn-on-dark{background:#fff;color:var(--norbu-plum);border-color:#fff}
+.card{background:#fff;border:1px solid var(--plum-border);border-radius:var(--radius-card);padding:1.5rem}
+.icon{width:1.5rem;height:1.5rem;color:var(--norbu-plum)}

@@ -1,0 +1,36 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+# --- project specific ---
+# original, full-size client photos and logo exports (about 90 MB): kept on your computer, not needed to build the site.
+# The web-sized copies the site really uses are in src/assets/images/*.jpg and src/assets/logos/.
+src/assets/images/website photos/
+src/assets/images/logo/
+src/assets/_original-purple-placeholders/
+# leftovers from the original template
+_legacy-yoga-template/
+# temporary files
+*.log
+Thumbs.db

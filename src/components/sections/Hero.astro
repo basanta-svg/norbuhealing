@@ -1,0 +1,78 @@
+---
+import { Icon } from 'astro-icon/components';
+import Img from '../ui/Img.astro';
+import Button from '../ui/Button.astro';
+// Background slideshow: each photo fades in while slowly zooming, then hands over to the next.
+const slides = ['lobby', 'spa-room-2', 'room-couple', 'salon-hall'];
+const slideTime = 7; // seconds per photo
+---
+<section class="relative" aria-labelledby="hero-title">
+  <div class="hero-bg absolute inset-0 overflow-hidden bg-black" style={`--slides:${slides.length}; --t:${slideTime}s`}>
+    {slides.map((name, i) => (
+      <div class="hero-slide" style={`--i:${i}`}>
+        <Img name={name} alt="" class="h-full w-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'auto'} widths={[800, 1280, 1600]} sizes="100vw" />
+      </div>
+    ))}
+    <div class="absolute inset-0 bg-gradient-to-b from-black/58 via-black/38 to-black/62"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 55% 45% at 50% 42%, rgb(0 0 0 / .42), transparent 75%)"></div>
+  </div>
+  <div class="relative z-10 flex min-h-[calc(100svh-4rem)] flex-col items-center lg:min-h-[100svh] justify-center px-6 py-28 text-center text-white lg:py-32">
+    <p class="hero-wave hero-eyebrow label reveal" aria-label="Healing, Beauty, Hospitality, Education"><span aria-hidden="true">Healing &bull; Beauty &bull; Hospitality &bull; Education</span></p>
+    <h1 id="hero-title" class="hero-h1 reveal mt-4" style="--d:80ms">A Complete Destination for Wellness, Beauty, Hospitality &amp; Professional Training</h1>
+    <p class="hero-lead reveal" style="--d:140ms">
+      Norbu Healing brings together healing, self-care, comfortable hospitality and professional learning in one connected destination in Thimphu, Bhutan.
+    </p>
+    <p class="hero-sub reveal" style="--d:180ms">
+      Located in Changjalu, Olakha, our four departments work together under one trusted brand to help you care for yourself, enjoy a welcoming stay, discover beauty services and develop professional skills.
+    </p>
+    <div class="reveal mt-7 flex flex-wrap items-center justify-center gap-4" style="--d:260ms">
+      <Button href="#departments" variant="light" arrow>Explore Norbu Healing</Button>
+      <Button href="/book/" variant="outline">Book Now</Button>
+    </div>
+  </div>
+
+</section>
+
+<style is:global>
+  /* background slideshow: each photo fades in while slowly zooming, then hands over to the next */
+  .hero-slide { position: absolute; inset: 0; opacity: 0; will-change: transform, opacity; animation: hero-slide calc(var(--t) * var(--slides)) linear infinite; animation-delay: calc(var(--i) * var(--t) - 1s); }
+  @keyframes hero-slide {
+    0%   { opacity: 0; transform: scale(1); }
+    4%   { opacity: 1; }
+    25%  { opacity: 1; }
+    29%  { opacity: 0; transform: scale(1.16); }
+    100% { opacity: 0; transform: scale(1.16); }
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-slide { animation: none; } .hero-slide:first-child { opacity: 1; } }
+  /* the eyebrow: a band of colour keeps sweeping through the words */
+  .hero-wave span {
+    display: inline-block;
+    background: linear-gradient(100deg, #fff 0%, #fff 32%, #f4c1d9 42%, #e08cbb 50%, #f4c1d9 58%, #fff 68%, #fff 100%);
+    background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+    animation: hero-wave 4.5s linear infinite;
+  }
+  @keyframes hero-wave { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+  @media (prefers-reduced-motion: reduce) { .hero-wave span { animation: none; background: none; -webkit-text-fill-color: #fff; color: #fff; } }
+  .hero-bg ~ div h1, .hero-bg ~ div p { text-shadow: 0 1px 14px rgb(0 0 0 / .45); }
+  /* background slideshow: each photo fades in while slowly zooming, then hands over to the next */
+  .hero-slide { position: absolute; inset: 0; opacity: 0; will-change: transform, opacity; animation: hero-slide calc(var(--t) * var(--slides)) linear infinite; animation-delay: calc(var(--i) * var(--t) - 1s); }
+  @keyframes hero-slide {
+    0%   { opacity: 0; transform: scale(1); }
+    4%   { opacity: 1; }
+    25%  { opacity: 1; }
+    29%  { opacity: 0; transform: scale(1.16); }
+    100% { opacity: 0; transform: scale(1.16); }
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-slide { animation: none; } .hero-slide:first-child { opacity: 1; } }
+  /* the eyebrow: a band of colour keeps sweeping through the words */
+  .hero-wave span {
+    display: inline-block;
+    background: linear-gradient(100deg, #fff 0%, #fff 32%, #f4c1d9 42%, #e08cbb 50%, #f4c1d9 58%, #fff 68%, #fff 100%);
+    background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+    animation: hero-wave 4.5s linear infinite;
+  }
+  @keyframes hero-wave { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+  @media (prefers-reduced-motion: reduce) { .hero-wave span { animation: none; background: none; -webkit-text-fill-color: #fff; color: #fff; } }
+  .hero-bg ~ div h1, .hero-bg ~ div p { text-shadow: 0 1px 14px rgb(0 0 0 / .45); }
+  .hero-dock-wrap { position: absolute; inset-inline: 0; bottom: 0; z-index: 20; padding-inline: 1rem; transform: translateY(42%); pointer-events: none; }
+</style>

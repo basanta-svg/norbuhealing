@@ -1,0 +1,58 @@
+---
+// The four departments as tall capsule photographs, staggered, with an icon and the name on each.
+import Img from '../ui/Img.astro';
+import LineIcon from '../ui/LineIcon.astro';
+import { Icon } from 'astro-icon/components';
+import { departments } from '../../data/site';
+interface Props { label?: string | false; title?: string; lead?: string | false; lines?: Record<string, string>; showCta?: boolean }
+const { label = 'Our Departments', title = 'One Brand. Four Experiences.', lead = 'Each department has its own expertise while remaining part of the wider Norbu Healing experience. Not sure where to start? Choose the one that fits what you need today.', lines, showCta = true } = Astro.props;
+const iconFor = { healing: 'lotus', hotel: 'stay', salon: 'hair', institute: 'courses' } as const;
+---
+<section id="departments" class="scroll-mt-24 section-pad overflow-hidden" aria-labelledby="departments-title">
+  <div class="container-site">
+    <div class="mx-auto max-w-2xl text-center">
+      {label && <p class="label reveal">{label}</p>}
+      <h2 id="departments-title" class:list={['reveal', label && 'mt-4']} style="--d:100ms">{title}</h2>
+      {lead && <p class="reveal mt-4 text-gray-600" style="--d:160ms">{lead}</p>}
+    </div>
+
+    <div class="dept-row">
+      {departments.map((d, i) => (
+        <article class="dept reveal" style={`--d:${i * 110}ms`}>
+          <a href={d.href} class="dept-capsule group" aria-label={d.name}>
+            <Img name={d.image} alt="" class="dept-img" sizes="(min-width:1024px) 270px, 45vw" widths={[400, 600, 800]} />
+            <span class="dept-shade" aria-hidden="true"></span>
+            <span class="dept-inner">
+              <LineIcon name={iconFor[d.key]} plain class="dept-icon" />
+              <span class="dept-name">{d.name}</span>
+              {showCta && <span class="dept-go">{d.cta} <Icon name="norbu-arrow-right" class="h-4 w-4" aria-hidden="true" /></span>}
+            </span>
+          </a>
+          <p class="dept-blurb">{lines ? lines[d.key] : d.blurb}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .dept-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem .85rem; margin-top: 3.5rem; align-items: start; }
+  @media (min-width: 1024px) { .dept-row { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 4.5rem; } .dept:nth-child(even) { margin-top: 4rem; } }
+  @media (max-width: 1023px) { .dept:nth-child(even) { margin-top: 2.5rem; } }
+
+  .dept-capsule { position: relative; display: block; aspect-ratio: 1 / 1.6; overflow: hidden; border-radius: 999px; background: var(--color-plum-section); isolation: isolate; }
+  .dept-img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s cubic-bezier(.22, 1, .36, 1); }
+  .dept-capsule:hover .dept-img { transform: scale(1.08); }
+  .dept-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgb(0 0 0 / .62) 0%, rgb(0 0 0 / .36) 45%, rgb(0 0 0 / .22) 100%); transition: background .6s; }
+  .dept-capsule:hover .dept-shade { background: linear-gradient(0deg, rgb(40 0 26 / .78) 0%, rgb(40 0 26 / .5) 55%, rgb(40 0 26 / .32) 100%); }
+  .dept-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .7rem; padding: 1.5rem 1rem; text-align: center; color: #fff; }
+  .dept-icon { width: 2.4rem; height: 2.4rem; color: #fff; transition: transform .7s cubic-bezier(.22, 1, .36, 1); }
+  @media (min-width: 1024px) { .dept-icon { width: 3rem; height: 3rem; } }
+  .dept-capsule:hover .dept-icon { transform: translateY(-4px) scale(1.08); }
+  .dept-name { font-size: 1rem; font-weight: 600; line-height: 1.25; text-shadow: 0 1px 12px rgb(0 0 0 / .5); }
+  @media (min-width: 1024px) { .dept-name { font-size: 1.35rem; } }
+  .dept-go { display: inline-flex; align-items: center; gap: .35rem; font-size: .8125rem; font-weight: 600; color: rgb(255 255 255 / .9); transition: gap .4s; }
+  .dept-capsule:hover .dept-go { gap: .7rem; }
+  .dept-blurb { margin: 1rem .25rem 0; text-align: center; font-size: .875rem; line-height: 1.55; color: #3a3a3a; }
+  @media (min-width: 1024px) { .dept-blurb { font-size: .9rem; } }
+</style>

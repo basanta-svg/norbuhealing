@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DivisionAbout from '../components/ui/DivisionAbout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import Button from '../components/ui/Button.astro';
+import Img from '../components/ui/Img.astro';
+import SectionHead from '../components/ui/SectionHead.astro';
+import CheckList from '../components/ui/CheckList.astro';
+import ContactBox from '../components/ui/ContactBox.astro';
+import EnquiryForm from '../components/ui/EnquiryForm.astro';
+import FiveElements from '../components/sections/FiveElements.astro';
+import FinalCta from '../components/sections/FinalCta.astro';
+import { healingServices } from '../data/site';
+const visitors = [
+  'Individuals seeking relaxation and a break from daily stress.',
+  'People looking for a personalized wellness experience.',
+  'Sportspeople and trekkers seeking a wellness session around physical activity.',
+  'Clients interested in foot reflexology or focused bodywork.',
+  'Wellness-focused individuals who value a calm and welcoming environment.',
+];
+---
+<BaseLayout exactTitle title="Norbu Healing Arts Centre | Spa & Wellness in Thimphu" description="Explore wellness and healing experiences at Norbu Healing Arts Centre in Olakha, Thimphu, including signature healing, sports and trekking healing, foot reflexology and personalized wellness sessions.">
+  <PageHero full eyebrow="Norbu Healing Arts Centre" title="Rebalance Your Body. Renew Your Mind." image="spa-window" crumbs={[{ label: 'Healing' }]}
+    subtitle="Discover a considered approach to wellness at Norbu Healing Arts Centre — a dedicated space for therapeutic treatments, relaxation and holistic well-being. Inspired by Bhutanese healing wisdom and supported by modern wellness practices, our centre offers personalized experiences designed around your needs and comfort.">
+    <Button href="#book" variant="light" arrow>Book a Healing Session</Button>
+    <Button href="#services" variant="outline">Explore Our Services</Button>
+  </PageHero>
+
+  <DivisionAbout dept="healing" id="about-centre" label="About the centre" title="A calm, welcoming environment for well-being" image="spa-bed" imageAlt="A treatment room at the Healing Arts Centre" primary={["Book a session", "#book"]} secondary={["Our services", "#services"]}>
+    <p>Norbu Healing Arts Centre is a specialized wellness and healing facility focused on physical relaxation, mental ease and overall well-being. Our approach brings together Bhutanese-inspired healing practices and modern spa and wellness techniques in a calm, welcoming environment.</p>
+    <p>Every client is different. We encourage a personalized approach that considers individual preferences, comfort and wellness goals. Our treatments are intended to support relaxation and well-being and are not a substitute for medical diagnosis or treatment.</p>
+  </DivisionAbout>
+
+  <FiveElements lead="The centre’s philosophy is inspired by the five elements — Space, Earth, Fire, Water and Wind. Together, they offer a way to reflect on balance, connection and the relationship between people and their surroundings. These ideas are presented in a contemporary and practical way, with emphasis on personal care, comfort and a thoughtful treatment experience." />
+
+  <section id="services" class="scroll-mt-24 section-pad" aria-labelledby="services-title">
+    <div class="container-site">
+      <SectionHead center id="services-title" label="Our services" title="Healing & wellness experiences" lead="Suggested session lengths are 60 or 90 minutes, confirmed with the centre for each service. Please enquire for current prices and availability." />
+      <div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {healingServices.map((s, i) => (
+          <article class="card reveal flex flex-col" style={`--d:${(i % 4) * 80}ms`}>
+            <h3 class="!text-[1.25rem]">{s.title}</h3>
+            <p class="mt-3 flex-1 text-[0.92rem] text-gray-600">{s.text}</p>
+            <p class="label mt-5 !text-[0.66rem] text-gold-600">Duration &amp; price: please enquire</p>
+            <div class="mt-4"><Button href={`/healing/?service=${encodeURIComponent(s.title)}#book`} variant="outline-dark" class="!px-5">Book Now</Button></div>
+          </article>
+        ))}
+      </div>
+      <p class="mx-auto mt-10 max-w-2xl text-center text-sm text-gray-600">Benefits are described to support relaxation and well-being only. Our services do not diagnose, cure or treat medical conditions.</p>
+    </div>
+  </section>
+
+  <section class="wash-sage section-pad" aria-labelledby="approach-title">
+    <div class="container-site grid gap-12 lg:grid-cols-2 lg:gap-20">
+      <div>
+        <SectionHead label="Our approach" id="approach-title" title="A personalized experience" />
+        <p class="reveal mt-6 text-gray-600" style="--d:150ms">Every individual is different. Our approach focuses on understanding each client’s needs and providing a personalized experience that combines traditional inspiration with modern wellness practices. We aim to create a calm environment where clients can step away from daily pressures and focus on themselves.</p>
+      </div>
+      <div class="reveal">
+        <h3 >Who should visit?</h3>
+        <div class="mt-6"><CheckList items={visitors} /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad" aria-labelledby="env-title">
+    <div class="container-site">
+      <SectionHead center id="env-title" label="Environment & gallery" title="A setting designed to help you slow down" lead="The centre offers a setting designed to help clients slow down, feel comfortable and focus on their wellness experience." />
+      <div class="mt-12 grid gap-5 sm:grid-cols-3">
+        {['spa-bed', 'spa-room', 'therapist'].map((n, i) => (
+          <div class:list={['img-zoom reveal aspect-[4/3] overflow-hidden rounded-[24px]', i === 0 && 'sm:rounded-tl-[80px]', i === 2 && 'sm:rounded-br-[80px]']} style={`--d:${i * 80}ms`}><Img name={n} class="h-full w-full object-cover" sizes="(min-width:1024px) 420px, 100vw" /></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="book" class="wash-sage scroll-mt-24 section-pad" aria-labelledby="book-title">
+    <div class="container-site grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
+      <div>
+        <SectionHead id="book-title" label="Contact & booking" title="Book a Healing Session" />
+        <div class="reveal mt-8"><ContactBox dept="healing" cta="Book a Healing Session" ctaHref="#book-form" /></div>
+      </div>
+      <div id="book-form" class="reveal rounded-[28px] bg-white p-6 shadow-card sm:p-10">
+        <EnquiryForm kind="healing" light />
+      </div>
+    </div>
+  </section>
+
+  <FinalCta />
+</BaseLayout>

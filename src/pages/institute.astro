@@ -1,0 +1,144 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DivisionAbout from '../components/ui/DivisionAbout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import Button from '../components/ui/Button.astro';
+import Img from '../components/ui/Img.astro';
+import SectionHead from '../components/ui/SectionHead.astro';
+import CheckList from '../components/ui/CheckList.astro';
+import ContactBox from '../components/ui/ContactBox.astro';
+import EnquiryForm from '../components/ui/EnquiryForm.astro';
+import FinalCta from '../components/sections/FinalCta.astro';
+import { primaryCourses, additionalCourses, courseFields, schedule, trainers } from '../data/site';
+const careers = [
+  'Starting or developing a personal business.',
+  'Seeking employment in salons, spas and wellness centres.',
+  'Building a long-term career in the beauty and wellness industry.',
+  'Continuing to develop practical skills through further training.',
+];
+const enrol = [
+  'Grade 12 graduates.',
+  'Job seekers interested in practical professional skills.',
+  'Individuals planning to enter the wellness or beauty industry.',
+  'Learners seeking to build on existing experience, subject to course requirements.',
+];
+const scheduleCols = ['Course', 'Trainer', 'Dates', 'Class time', 'Fee', 'Seats', 'Deadline', 'Status'];
+---
+<BaseLayout exactTitle title="Norbu International Wellness Institute | Beauty & Wellness Training Bhutan" description="Explore spa and massage therapy, hair and beauty therapy, and professional skills training at Norbu International Wellness Institute in Thimphu, Bhutan.">
+  <PageHero full eyebrow="Norbu International Wellness Institute" title="Empowering Skills. Creating Careers." image="spa-twin-2" crumbs={[{ label: 'Institute' }]}
+    subtitle="Build practical skills and explore career opportunities in the wellness and beauty industry. Our training approach emphasizes hands-on learning, professional practice and skills that can support future employment or entrepreneurship.">
+    <Button href="#courses" variant="light" arrow>Explore Courses</Button>
+    <Button href="#apply" variant="outline">Apply Now</Button>
+  </PageHero>
+
+  <DivisionAbout dept="institute" id="about-inst" label="About the institute" title="Professional training within the Norbu Healing ecosystem" image="spa-twin" imageAlt="A practical training room" flip primary={["Apply now", "#apply"]} secondary={["View courses", "#courses"]}>
+    <p>Norbu International Wellness Institute is the professional training and education department within the Norbu Healing ecosystem. The institute focuses on practical education and skill development in spa, massage, hair and beauty, helping learners build a foundation for work in the wellness and beauty industries.</p>
+    <p>Trainees can learn within a wider service environment that also includes wellness, salon and hospitality operations.</p>
+    <h3>Our approach</h3>
+    <p>We emphasize practical learning, industry-relevant knowledge and hands-on skill development. Our goal is to help trainees build confidence, understand professional expectations and develop skills they can continue to strengthen throughout their careers.</p>
+  </DivisionAbout>
+
+  <section id="courses" class="wash-sage scroll-mt-24 section-pad" aria-labelledby="courses-title">
+    <div class="container-site">
+      <SectionHead center id="courses-title" label="Primary programs" title="Our courses" lead="Course details, fees, intakes and certification are confirmed by the institute — please enquire for current information." />
+      <div class="mt-14 grid gap-8 lg:grid-cols-2">
+        {primaryCourses.map((c, i) => (
+          <article class="card reveal flex flex-col sm:p-10" style={`--d:${i * 100}ms`}>
+            <h3>{c.title}</h3>
+            <p class="mt-3 text-gray-600">{c.text}</p>
+            <dl class="mt-6 grid gap-x-6 sm:grid-cols-2">
+              {courseFields.map((f) => <div class="flex justify-between gap-3 border-b border-sage-900/10 py-2.5 text-[0.9rem]"><dt class="label !text-[0.64rem] text-sage-700">{f}</dt><dd class="text-right text-gray-600">To be confirmed</dd></div>)}
+            </dl>
+            <div class="mt-8 flex flex-wrap gap-4">
+              <Button href={`/institute/?course=${encodeURIComponent(c.title)}#apply`} variant="outline-dark" class="!px-5">Enquire About This Course</Button>
+              <Button href={`/institute/?course=${encodeURIComponent(c.title)}#apply`} class="!px-5" arrow>Apply Now</Button>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-20">
+        <SectionHead center label="Additional and advanced training" title="Short-term & specialised courses" lead="The institute may announce specialised or short-term training from time to time. Not every course below runs at all times — please ask about current availability." />
+        <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {additionalCourses.map((c, i) => (
+            <li class="reveal flex flex-col justify-between gap-4 rounded-[20px] bg-white p-6 shadow-card" style={`--d:${(i % 4) * 70}ms`}>
+              <span class="text-lg font-semibold text-plum">{c.title}</span>
+              <span class="flex items-center justify-between gap-2"><span class="label !text-[0.62rem] text-gold-600">{c.status}</span><a href={`/institute/?course=${encodeURIComponent(c.title)}#apply`} class="text-sage-900 hover:text-gold-600" aria-label={`Enquire about ${c.title}`}><Icon name="norbu-arrow-right" class="h-4 w-4" /></a></span>
+            </li>
+          ))}
+          <li class="reveal rounded-[20px] border border-dashed border-sage-500/40 p-6 text-[0.95rem] text-gray-600 sm:col-span-2 lg:col-span-4">Other short-term professional beauty and wellness courses are announced as they become available.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad" aria-labelledby="schedule-title">
+    <div class="container-site">
+      <SectionHead center id="schedule-title" label="Training schedule" title="Intakes & class times" lead="Daytime, evening and other flexible class times are supported. The schedule is updated for each course and intake." />
+      {schedule.length > 0 ? (
+        <div class="mt-10 overflow-x-auto rounded-[20px] bg-white shadow-card">
+          <table class="w-full min-w-[820px] text-left text-[0.92rem]">
+            <thead class="bg-plum-section text-plum"><tr>{scheduleCols.map((c) => <th scope="col" class="label !text-[0.64rem] px-4 py-3">{c}</th>)}</tr></thead>
+            <tbody class="divide-y divide-sage-900/10">
+              {schedule.map((r) => <tr><td class="px-4 py-3">{r.course}</td><td class="px-4 py-3">{r.trainer}</td><td class="px-4 py-3">{r.dates}</td><td class="px-4 py-3">{r.time}</td><td class="px-4 py-3">{r.fee}</td><td class="px-4 py-3">{r.seats}</td><td class="px-4 py-3">{r.deadline}</td><td class="px-4 py-3">{r.status}</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div class="reveal mx-auto mt-10 max-w-2xl rounded-[20px] border border-dashed border-sage-500/40 p-8 text-center text-gray-600">
+          <p>No intakes are published yet. Contact the institute on <a class="text-sage-900 underline" href="tel:77966100">77966100</a> or <a class="text-sage-900 underline" href="#apply">send an enquiry</a> to hear about upcoming courses, seats and application deadlines.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="wash-sage section-pad" aria-labelledby="careers-title">
+    <div class="container-site grid gap-12 lg:grid-cols-2 lg:gap-20">
+      <div>
+        <SectionHead label="Career opportunities" id="careers-title" title="Skills for your next career step" lead="Our programs are designed to help learners develop skills that may support their next career step, including:" />
+        <div class="reveal mt-6"><CheckList items={careers} /></div>
+      </div>
+      <div>
+        <h3 class="reveal">Who can enrol?</h3>
+        <div class="reveal mt-6"><CheckList items={enrol} /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad" aria-labelledby="trainers-title">
+    <div class="container-site">
+      <SectionHead center id="trainers-title" label="Trainers & instructors" title="Learn from experienced professionals" />
+      {trainers.length > 0 ? (
+        <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {trainers.map((t) => (
+            <div class="reveal text-center">
+              <h3 class="mt-5">{t.name}</h3><p class="label mt-1 !text-[0.68rem] text-gold-600">{t.title}</p>
+              <p class="mt-3 text-[0.9rem] text-gray-600">{t.qualifications}</p><p class="mt-1 text-[0.9rem] text-gray-600">{t.experience}</p><p class="mt-1 text-[0.9rem] text-gray-600">{t.specialization}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="reveal mx-auto mt-6 max-w-2xl text-center text-gray-600">Trainer profiles — with current photographs, verified qualifications, experience and specialisations — will be introduced here. Contact the institute to learn more about our trainers.</p>
+      )}
+      <div class="mx-auto mt-16 max-w-3xl text-center">
+        <h3 class="reveal">Student experience</h3>
+        <p class="reveal mt-3 text-gray-600">Training facilities, practical sessions, demonstrations and student achievements will be shared here, with student stories and photographs published only with permission.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="apply" class="wash-ivory scroll-mt-24 section-pad" aria-labelledby="apply-title">
+    <div class="container-site grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
+      <div>
+        <SectionHead id="apply-title" label="Application form" title="Apply or enquire about training" lead="Keep it simple: tell us who you are and which course interests you. We will follow up to confirm eligibility, availability, fees and next steps." />
+        <div class="reveal mt-8"><ContactBox dept="institute" cta="Enquire About Training" ctaHref="#apply-form" /></div>
+      </div>
+      <div id="apply-form" class="reveal rounded-[28px] bg-white p-6 shadow-card sm:p-10">
+        <EnquiryForm kind="institute" light />
+      </div>
+    </div>
+  </section>
+
+  <FinalCta />
+</BaseLayout>

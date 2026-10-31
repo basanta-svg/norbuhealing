@@ -1,0 +1,34 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site, dept, type DeptKey } from '../../data/site';
+import Button from './Button.astro';
+interface Props { dept: DeptKey; cta: string; ctaHref: string; hours?: boolean; directions?: boolean }
+const { dept: key, cta, ctaHref, hours = false, directions = false } = Astro.props;
+const d = dept(key);
+const rows: [string, string, string | null][] = [
+  ['norbu-lotus', 'Department', d.name],
+  ['norbu-phone', 'Phone', null],
+  ['norbu-email', 'Email', site.email],
+  ['norbu-location', 'Address', site.address],
+  ...(hours ? ([['norbu-hours', 'Opening hours', site.hours]] as [string, string, string][]) : []),
+];
+---
+<div class="rounded-[24px] bg-plum-section p-8 sm:p-10">
+  <ul class="space-y-5">
+    {rows.map(([icon, label, value]) => (
+      <li class="flex items-start gap-4">
+        <span class="icon-circle icon-circle-sm icon-circle-white"><Icon name={icon} /></span>
+        <div>
+          <p class="label ">{label}</p>
+          {label === 'Phone' ? (
+            <p>{d.phones.map((p, i) => <>{i > 0 && ' / '}<a href={`tel:${p}`} class="hover:underline">{p}</a></>)}</p>
+          ) : label === 'Email' ? <a href={`mailto:${value}`} class="hover:underline">{value}</a> : <p>{value}</p>}
+        </div>
+      </li>
+    ))}
+  </ul>
+  <div class="mt-8 flex flex-wrap gap-4">
+    <Button href={ctaHref}>{cta}</Button>
+    {directions && <Button href={site.directionsUrl} variant="outline-dark" target="_blank" rel="noopener">Get Directions</Button>}
+  </div>
+</div>

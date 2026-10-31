@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import Img from '../components/ui/Img.astro';
+import Button from '../components/ui/Button.astro';
+import SectionHead from '../components/ui/SectionHead.astro';
+import LineIcon from '../components/ui/LineIcon.astro';
+import VisionMission from '../components/sections/VisionMission.astro';
+import Departments from '../components/sections/Departments.astro';
+import FinalCta from '../components/sections/FinalCta.astro';
+import { departments } from '../data/site';
+const values = [
+  ['Care and respect', 'lotus'], ['Quality and professionalism', 'sun'], ['Learning and growth', 'leaf'],
+  ['Personalized service', 'figure'], ['Bhutanese identity', 'mandala'], ['Continuous improvement', 'water'],
+] as const;
+const deptLines: Record<string, string> = {
+  healing: 'Wellness and healing.',
+  hotel: 'Accommodation, restaurant, bar and Green Cafe.',
+  salon: 'Hair, skincare, grooming and beauty.',
+  institute: 'Professional wellness and beauty training.',
+};
+---
+<BaseLayout title="About Norbu Healing" description="Learn the story, vision, mission and values of Norbu Healing, a connected Bhutanese destination for wellness, beauty, hospitality and professional education in Thimphu.">
+  <PageHero title="About Norbu Healing" crumbs={[{ label: 'About' }]} image="reception" />
+
+  <section class="section-pad" aria-labelledby="story-title">
+    <div class="container-site grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div class="reveal img-zoom overflow-hidden rounded-[28px] rounded-tl-[120px]"><Img name="reception" alt="The Norbu Healing reception and lounge" class="aspect-[4/3] w-full object-cover" sizes="(min-width:1024px) 600px, 100vw" /></div>
+      <div>
+        <SectionHead id="story-title" title="Our story" />
+        <p class="reveal mt-6 text-gray-600" style="--d:150ms">Norbu Healing was established to bring complementary services together through a shared commitment to care, quality and professional growth. Today, the Norbu Healing identity connects wellness and healing, hospitality, beauty and professional education in one integrated ecosystem in Thimphu, Bhutan.</p>
+        <p class="reveal mt-4 text-gray-600" style="--d:200ms">The brand has developed around four departments: Norbu Healing Arts Centre, Norbu Healing Hotel, Norbu Healing Salon and Norbu International Wellness Institute. Each department has its own expertise while remaining part of the wider Norbu Healing experience.</p>
+      </div>
+    </div>
+  </section>
+
+  <VisionMission />
+
+  <section class="wash-ivory section-pad" aria-labelledby="values-title">
+    <div class="container-site max-w-[1100px]">
+      <SectionHead center id="values-title" title="Our values" />
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {values.map(([v, icon], i) => (
+          <div class="card reveal flex items-center gap-5" style={`--d:${(i % 3) * 80}ms`}>
+            <LineIcon name={icon} /><h3 class="!text-[1.25rem]">{v}</h3>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Departments label={false} title="Our four departments" lead={false} showCta={false} lines={{ healing: 'Norbu Healing Arts Centre — wellness and healing.', hotel: 'Norbu Healing Hotel — accommodation, restaurant, bar and Green Cafe.', salon: 'Norbu Healing Salon — hair, skincare, grooming and beauty.', institute: 'Norbu International Wellness Institute — professional wellness and beauty training.' }} />
+
+  <section class="wash-sage section-pad text-center" aria-labelledby="quality-title">
+    <div class="container-site max-w-3xl">
+      <SectionHead center id="quality-title" title="Our commitment to quality" />
+      <p class="reveal mt-6 text-gray-600" style="--d:150ms">We aim to provide clear information, attentive service and experiences that respect the needs of our clients, guests and trainees.</p>
+    </div>
+  </section>
+
+  <FinalCta title="Everything you need to heal, enhance, experience and evolve — under one roof." text="NORBU HEALING brings together Healing • Beauty • Hospitality • Education in one connected Bhutanese destination in Changjalu, Olakha, Thimphu." />
+</BaseLayout>

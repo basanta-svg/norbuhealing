@@ -1,0 +1,101 @@
+---
+import { Icon } from 'astro-icon/components';
+const chips = ['Massage', 'Hair', 'Facial', 'Hotel room', 'Restaurant', 'Courses', 'Opening hours'];
+const groups = ['All', 'Healing', 'Salon', 'Hotel', 'Dining', 'Courses', 'Pages'];
+---
+<dialog id="search-dialog" aria-label="Search Norbu Healing" class="search-dialog">
+  <div class="search-panel">
+    <form role="search" id="search-form" class="search-bar" onsubmit="return false">
+      <Icon name="norbu-search" class="h-6 w-6 shrink-0 text-plum" aria-hidden="true" />
+      <input id="search-input" type="search" autocomplete="off" spellcheck="false" enterkeyhint="search" placeholder="Search treatments, rooms, courses, offers…" aria-label="Search" aria-controls="search-results" aria-autocomplete="list" />
+      <button type="button" data-search-close class="search-esc" aria-label="Close search"><Icon name="norbu-close" class="h-5 w-5" /></button>
+    </form>
+
+    <div id="search-filters" class="search-filters" role="group" aria-label="Filter results" hidden>
+      {groups.map((g, i) => <button type="button" data-group={g} aria-pressed={i === 0 ? 'true' : 'false'}>{g}</button>)}
+    </div>
+
+    <div id="search-body" class="search-body">
+      <div id="search-home">
+        <p class="label !text-[0.7rem]">Try searching for</p>
+        <div class="mt-3 flex flex-wrap gap-2">
+          {chips.map((c) => <button type="button" class="search-chip" data-chip={c}>{c}</button>)}
+        </div>
+        <div id="search-recent" class="mt-6" hidden>
+          <p class="label !text-[0.7rem]">Recent</p>
+          <div id="search-recent-list" class="mt-3 flex flex-wrap gap-2"></div>
+        </div>
+        <p class="label mt-6 !text-[0.7rem]">Popular</p>
+      </div>
+      <ul id="search-results" role="listbox" aria-label="Search results" class="mt-2"></ul>
+      <div id="search-empty" class="search-empty" hidden>
+        <p class="text-lg font-semibold text-plum">Nothing matches “<span data-query></span>”</p>
+        <p class="mt-2 text-gray-600">Try a shorter word, or ask our team and we will help you find the right service.</p>
+        <div class="mt-5 flex flex-wrap justify-center gap-3"><a href="/contact/" class="btn btn-dark">Contact us</a><a href="/book/" class="btn btn-outline-dark">Book now</a></div>
+      </div>
+    </div>
+
+    <div class="search-foot">
+      <span id="search-count" role="status" aria-live="polite"></span>
+    </div>
+  </div>
+</dialog>
+
+<style is:global>
+  .search-dialog {
+    position: fixed; inset: 0; margin: 0; width: 100%; max-width: none; height: 100%; max-height: none;
+    padding: 4vh 12px 12px; background: transparent; border: 0; overflow: hidden;
+  }
+  .search-dialog:not([open]) { display: none; }
+  .search-dialog::backdrop { background: rgb(0 0 0 / 0.55); backdrop-filter: blur(6px); animation: search-fade .55s ease both; }
+  .search-dialog.is-closing::backdrop { animation: search-fade-out .32s ease forwards; }
+  @keyframes search-fade { from { opacity: 0; backdrop-filter: blur(0); } to { opacity: 1; backdrop-filter: blur(6px); } }
+  @keyframes search-fade-out { from { opacity: 1; } to { opacity: 0; } }
+  .search-panel {
+    margin: 0 auto; width: 100%; max-width: 720px; max-height: 88vh; display: flex; flex-direction: column;
+    background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 24px 80px rgb(0 0 0 / 0.3);
+    animation: search-in .6s cubic-bezier(.22, 1, .36, 1) both;
+  }
+  @keyframes search-in { from { opacity: 0; transform: translateY(-22px) scale(.96); } to { opacity: 1; transform: none; } }
+  .search-dialog.is-closing .search-panel { animation: search-out .32s cubic-bezier(.4, 0, 1, 1) forwards; }
+  @keyframes search-out { to { opacity: 0; transform: translateY(-14px) scale(.97); } }
+  /* results rise in one after another when the search opens */
+  .search-body ul.is-entering .search-hit, .search-body #search-home { animation: hit-in .6s cubic-bezier(.22, 1, .36, 1) both; }
+  .search-body ul.is-entering li { animation: hit-in .6s cubic-bezier(.22, 1, .36, 1) both; animation-delay: calc(.12s + var(--i, 0) * 55ms); }
+  .search-body ul.is-entering .search-hit { animation: none; }
+  @keyframes hit-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .search-panel, .search-dialog::backdrop, .search-body * { animation: none !important; } }
+  .search-bar, .search-filters, .search-foot { flex-shrink: 0; }
+  .search-bar { display: flex; align-items: center; gap: .75rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--color-plum-border); }
+  .search-bar input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 1.125rem; color: #000; }
+  .search-bar input::-webkit-search-cancel-button { display: none; }
+  .search-esc {
+    display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; color: var(--color-plum);
+    border: 1px solid var(--color-plum-border); height: 2.25rem; width: 2.25rem; flex-shrink: 0;
+  }
+  .search-esc:hover { background: var(--color-plum-section); }
+  .search-filters { display: flex; gap: .5rem; padding: .75rem 1.25rem; overflow-x: auto; border-bottom: 1px solid var(--color-plum-border); scrollbar-width: none; }
+  .search-filters[hidden] { display: none; }
+  .search-filters button, .search-chip {
+    flex-shrink: 0; border: 1.5px solid var(--color-plum-border); color: var(--color-plum); border-radius: 999px;
+    padding: .35rem .9rem; font-size: .875rem; font-weight: 600; transition: background-color .15s, color .15s, border-color .15s;
+  }
+  .search-filters button:hover, .search-chip:hover { background: var(--color-plum-section); }
+  .search-filters button[aria-pressed='true'] { background: var(--color-plum); color: #fff; border-color: var(--color-plum); }
+  .search-body { padding: 1rem 1.25rem 1.25rem; overflow-y: auto; flex: 1; }
+  .search-hit {
+    display: flex; align-items: center; gap: 1rem; padding: .75rem; border-radius: 12px; color: inherit; text-decoration: none;
+    border: 1.5px solid transparent;
+  }
+  .search-hit[aria-selected='true'], .search-hit:hover { background: var(--color-plum-section); border-color: var(--color-plum-border); }
+  .search-hit .icon-circle { width: 2.75rem; height: 2.75rem; background: var(--color-plum-section); }
+  .search-hit[aria-selected='true'] .icon-circle { background: #fff; }
+  .search-hit .t { display: block; font-weight: 700; color: var(--color-plum); line-height: 1.25; }
+  .search-hit .a { display: block; font-size: .6875rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--color-plum-muted); }
+  .search-hit .x { display: block; margin-top: .15rem; font-size: .875rem; color: #4a4a4a; line-height: 1.4; }
+  .search-hit mark { background: var(--color-blush); color: inherit; border-radius: 3px; padding: 0 1px; }
+  .search-hit .go { margin-left: auto; width: 1.25rem; height: 1.25rem; color: var(--color-plum); opacity: 0; flex-shrink: 0; transition: opacity .15s; }
+  .search-hit[aria-selected='true'] .go { opacity: 1; }
+  .search-empty { text-align: center; padding: 2rem 0 1rem; }
+  .search-foot { display: flex; justify-content: space-between; gap: 1rem; padding: .7rem 1.25rem; border-top: 1px solid var(--color-plum-border); font-size: .8125rem; color: var(--color-plum-muted); background: var(--color-plum-section); }
+</style>

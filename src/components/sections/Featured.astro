@@ -1,0 +1,23 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from '../ui/Button.astro';
+import SectionHead from '../ui/SectionHead.astro';
+import { featured, dept } from '../../data/site';
+---
+<section class="section-pad" aria-labelledby="featured-title">
+  <div class="container-site">
+    <SectionHead center id="featured-title" label="Featured Experiences" title="Discover a selection of experiences across Norbu Healing" lead="A small, curated selection from each department. Visit a department page for the full list of services and courses." />
+    <div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {featured.map((f, i) => (
+        <div class="card reveal flex flex-col" style={`--d:${i * 80}ms`}>
+          <h3 class="!text-[1.35rem]">{f.title}</h3>
+          <ul class="mt-5 flex-1 space-y-3 text-[0.93rem] text-gray-600">
+            {f.items.map((it) => <li class="flex items-start gap-2.5"><Icon name="norbu-lotus" class="mt-1 h-4 w-4 shrink-0 text-gold-600" />{it}</li>)}
+          </ul>
+          <a href={dept(f.dept).href} class="label link-arrow mt-6 text-sage-900 hover:text-gold-600">Learn more <Icon name="norbu-arrow-right" class="h-4 w-4" /></a>
+        </div>
+      ))}
+    </div>
+    <div class="reveal mt-12 text-center"><Button href="#departments" variant="outline-dark" arrow>View All Services</Button></div>
+  </div>
+</section>

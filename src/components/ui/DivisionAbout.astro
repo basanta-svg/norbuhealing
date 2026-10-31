@@ -1,0 +1,61 @@
+---
+// "About" block for a department page: the department's own logo lockup, its story, quick facts and calls to action.
+import { Icon } from 'astro-icon/components';
+import { site, dept, type DeptKey } from '../../data/site';
+import Img from './Img.astro';
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+interface Props {
+  dept: DeptKey; id: string; label: string; title: string; image: string; imageAlt: string;
+  flip?: boolean; primary: [string, string]; secondary: [string, string];
+}
+const { dept: key, id, label, title, image, imageAlt, flip = false, primary, secondary } = Astro.props;
+const d = dept(key);
+const facts = [
+  ['norbu-phone', 'Call', d.phones.join(' / '), `tel:${d.phones[0]}`],
+  ['norbu-hours', 'Open daily', site.hours, null],
+  ['norbu-location', 'Find us', site.addressShort, site.directionsUrl],
+] as const;
+---
+<section class="section-pad" aria-labelledby={id}>
+  <div class="container-site grid items-center gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+    <div class:list={['reveal relative pb-28 sm:pb-24', flip && 'lg:order-2']}>
+      <div class="img-zoom overflow-hidden rounded-[16px]">
+        <Img name={image} alt={imageAlt} class="aspect-[4/4.4] w-full object-cover sm:aspect-[4/3.6]" sizes="(min-width:1024px) 560px, 100vw" widths={[500, 800, 1100]} />
+      </div>
+      <!-- the department's own logo, set on a white card that overlaps the photo -->
+      <div class:list={['absolute -bottom-0 left-5 right-5 rounded-[16px] border border-plum-border bg-white px-8 py-6 sm:right-auto sm:left-8', flip && 'lg:left-auto lg:right-8']}>
+        <Logo variant="colour" brand={key} link={false} class="!h-auto !w-[200px] sm:!w-[250px]" />
+      </div>
+    </div>
+
+    <div>
+      <p class="label reveal">{label}</p>
+      <h2 id={id} class="reveal mt-4 max-w-xl" style="--d:80ms">{title}</h2>
+      <div class="about-body reveal mt-6 max-w-[62ch] text-gray-600"><slot /></div>
+
+      <ul class="reveal mt-8 flex flex-wrap gap-x-8 gap-y-5" style="--d:200ms">
+        {facts.map(([icon, name, value, href]) => (
+          <li class="flex items-start gap-3">
+            <span class="icon-circle icon-circle-sm"><Icon name={icon} aria-hidden="true" /></span>
+            <div class="min-w-0">
+              <p class="label !text-[0.62rem] !tracking-[0.25em]">{name}</p>
+              {href ? <a href={href} class="text-[0.92rem] font-semibold text-black hover:text-plum hover:underline" target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener' : undefined}>{value}</a> : <p class="whitespace-nowrap text-[0.92rem] font-semibold">{value}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div class="reveal mt-9 flex flex-wrap gap-4" style="--d:260ms">
+        <Button href={primary[1]} arrow>{primary[0]}</Button>
+        <Button href={secondary[1]} variant="outline-dark">{secondary[0]}</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .about-body > p + p { margin-top: 1rem; }
+  .about-body > h3 { margin-top: 1.75rem; font-size: 1.2rem; }
+  .about-body > h3 + p { margin-top: .5rem; }
+</style>

@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import Stars from '../ui/Stars.astro';
+import LeafArt from '../ui/LeafArt.astro';
+import SectionHead from '../ui/SectionHead.astro';
+// Genuine reviews only: add one .md file per review in src/content/testimonials (with the reviewer's permission).
+// The whole section stays hidden until at least one review exists.
+const items = (await getCollection('testimonials')).sort((a, b) => a.data.order - b.data.order);
+const rendered = await Promise.all(items.map(async (t) => ({ t, body: t.body ?? '' })));
+---
+{rendered.length > 0 && (
+  <section class="wash-ivory relative overflow-hidden section-pad" aria-labelledby="testi-title">
+    <LeafArt class="-left-6 top-1/4 hidden h-[480px] w-60 lg:block" flip />
+    <div class="container-site max-w-[1060px]">
+      <SectionHead center id="testi-title" label="Testimonials" title="Hear from our clients, guests and trainees" lead="Wellness • Salon • Hotel • Institute" />
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        {rendered.map(({ t, body }, i) => (
+          <figure class="reveal rounded-[20px] bg-white px-7 py-8 text-center shadow-card" style={`--d:${(i % 3) * 100}ms`}>
+            <Stars n={t.data.rating} />
+            <blockquote class="mt-5 text-[0.92rem] leading-relaxed">“{body.trim()}”</blockquote>
+            <hr class="my-5 border-sage-900/10" />
+            <figcaption><span class="text-lg font-semibold text-plum">{t.data.name}</span><br /><span class="text-sm text-gray-600">{t.data.department}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

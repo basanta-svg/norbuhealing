@@ -1,0 +1,20 @@
+---
+import Button from '../ui/Button.astro';
+interface Props { title?: string; text?: string; primary?: [string, string]; secondary?: [string, string] }
+const {
+  title = 'Experience the Difference.',
+  text = 'Discover healing, beauty, hospitality and professional learning — all connected under one roof in Changjalu, Olakha, Thimphu, Bhutan.',
+  primary = ['Book an Experience', '/book/'],
+  secondary = ['Contact Norbu Healing', '/contact/'],
+} = Astro.props;
+---
+<section class="wash-sage section-pad text-center" aria-labelledby="cta-title">
+  <div class="container-site">
+    <h2 id="cta-title" class="reveal mx-auto max-w-2xl">{title}</h2>
+    <p class="reveal mx-auto mt-5 max-w-xl text-gray-600" style="--d:100ms">{text}</p>
+    <div class="reveal mt-9 flex flex-wrap justify-center gap-6" style="--d:160ms">
+      <Button href={primary[1]} arrow>{primary[0]}</Button>
+      <Button href={secondary[1]} variant="outline-dark">{secondary[0]}</Button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+---
+import { Icon } from 'astro-icon/components';
+import Img from '../ui/Img.astro';
+import Button from '../ui/Button.astro';
+import { site } from '../../data/site';
+const rows = [
+  ['norbu-location', 'Address', site.address],
+  ['norbu-email', 'General email', site.email],
+  ['norbu-hours', 'General hours', site.hours],
+];
+---
+<section class="grid lg:grid-cols-2" aria-labelledby="visit-title">
+  <div class="img-zoom relative hidden min-h-[520px] overflow-hidden lg:block">
+    <Img name="spa-room" alt="" class="absolute inset-0 h-full w-full object-cover" sizes="50vw" widths={[800, 1200]} />
+  </div>
+  <div class="relative overflow-hidden bg-plum-section px-6 py-20 sm:px-12 lg:px-16 lg:py-28">
+    <svg class="pointer-events-none absolute -right-20 -top-20 h-80 w-80 text-plum/[0.06]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M10 100V50a40 40 0 0 1 80 0v50M25 100V52a25 25 0 0 1 50 0v48M40 100V54a10 10 0 0 1 20 0v46"/></svg>
+    <div class="relative mx-auto max-w-xl">
+      <h2 id="visit-title" class="reveal">Visit Norbu Healing</h2>
+      <p class="reveal mt-4 text-gray-600" style="--d:100ms">Find us in Changjalu, Olakha, Thimphu, Bhutan. We welcome enquiries about healing and wellness, salon services, accommodation, dining and professional training.</p>
+      <ul class="reveal mt-8 space-y-5" style="--d:160ms">
+        {rows.map(([icon, label, value]) => (
+          <li class="flex items-start gap-4"><span class="icon-circle icon-circle-sm icon-circle-white"><Icon name={icon} /></span><div><p class="label">{label}</p><p>{value}</p></div></li>
+        ))}
+      </ul>
+      <div class="reveal mt-10 flex flex-wrap gap-5" style="--d:220ms">
+        <Button href={site.directionsUrl} target="_blank" rel="noopener">Get Directions</Button>
+        <Button href="/contact/" variant="outline-dark">Contact Norbu Healing</Button>
+      </div>
+    </div>
+  </div>
+</section>

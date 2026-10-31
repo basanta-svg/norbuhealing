@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LineIcon from '../components/ui/LineIcon.astro';
+import Button from '../components/ui/Button.astro';
+---
+<BaseLayout title="Page not found" description="This page could not be found.">
+  <section class="wash-ivory flex min-h-[80vh] items-center justify-center px-6 pb-20 pt-40 text-center">
+    <div>
+      <LineIcon name="lotus" class="icon-circle-lg mx-auto !h-28 !w-28" />
+      <h1 class="mt-6">This page could not be found.</h1>
+      <p class="mx-auto mt-4 max-w-md text-gray-600">The page you are looking for does not exist. Try the menu, or head back to Norbu Healing’s home page.</p>
+      <div class="mt-8"><Button href="/" arrow>Back to Home</Button></div>
+    </div>
+  </section>
+</BaseLayout>

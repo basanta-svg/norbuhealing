@@ -1,0 +1,62 @@
+---
+// Why choose Norbu Healing: a bento grid, with the photograph in the middle and the six reasons around it.
+import { Icon } from 'astro-icon/components';
+import Img from '../ui/Img.astro';
+const features = [
+  ['Four complementary departments', 'Healing, hotel, salon and institute under one trusted parent brand.', 'norbu-lotus', 'lg:col-span-2 lg:row-start-1'],
+  ['Care centred on you', 'A service approach built around individual needs and customer care.', 'norbu-wellbeing', 'lg:col-span-2 lg:row-start-2'],
+  ['Tradition meets modern practice', 'Bhutanese healing inspiration combined with modern practices.', 'norbu-mountains', 'lg:col-span-2 lg:col-start-5 lg:row-start-1'],
+  ['Services for every need', 'Personal well-being, grooming, accommodation and professional learning.', 'norbu-massage', 'lg:col-span-2 lg:col-start-5 lg:row-start-2'],
+  ['A connected ecosystem', 'Opportunities to explore more than one service in a single visit.', 'norbu-renewal', 'lg:col-span-3 lg:row-start-3 why-wide'],
+  ['Convenient location', 'Find us in Changjalu, Olakha, Thimphu.', 'norbu-location', 'lg:col-span-3 lg:row-start-3 why-wide'],
+];
+---
+<section class="wash-sage section-pad" aria-labelledby="why-title">
+  <div class="container-site">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 id="why-title" class="reveal">Why choose Norbu Healing?</h2>
+      <p class="reveal mt-4 text-gray-600" style="--d:100ms">Choosing Norbu Healing means choosing a connected brand that values quality, consistency and care across every experience.</p>
+    </div>
+
+    <div class="mt-12 grid gap-4 lg:grid-cols-6 lg:gap-5">
+      <!-- centre: photograph with the "4 departments" mark -->
+      <div class="why-photo reveal order-first lg:col-span-2 lg:col-start-3 lg:row-span-2 lg:row-start-1" data-reveal="scale">
+        <Img name="spa-room-2" alt="A treatment room at Norbu Healing" class="absolute inset-0 h-full w-full object-cover" sizes="(min-width:1024px) 420px, 100vw" widths={[500, 800, 1100]} />
+        <div class="why-photo-shade"></div>
+        <div class="relative mt-auto flex items-end gap-4 p-6 text-white">
+          <p class="text-[3.75rem] font-bold leading-[.85]">4</p>
+          <p class="label !text-[0.7rem] !leading-snug !tracking-[0.25em] !text-white">Departments<br />under one roof</p>
+        </div>
+      </div>
+
+      {features.map(([title, text, icon, place], i) => (
+        <article class:list={['why-card reveal', place]} style={`--d:${i * 80}ms`}>
+          <span class="icon-circle icon-circle-lg"><Icon name={icon} aria-hidden="true" /></span>
+          <div>
+            <h3 class="!text-[1.2rem]">{title}</h3>
+            <p class="mt-2 text-[0.92rem] text-gray-600">{text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .why-card {
+    position: relative; display: flex; flex-direction: column; gap: 1.5rem; justify-content: space-between; padding: 1.75rem; background: #fff;
+    border: 1px solid var(--color-plum-border); border-radius: 16px; overflow: hidden;
+    transition: border-color .4s, transform .6s cubic-bezier(.22, 1, .36, 1);
+  }
+  /* a soft plum wash rises from the bottom on hover */
+  .why-card::after { content: ''; position: absolute; inset: auto 0 0 0; height: 0; background: linear-gradient(0deg, rgb(83 0 53 / .07), transparent); transition: height .6s cubic-bezier(.22, 1, .36, 1); pointer-events: none; }
+  .why-card:hover { border-color: var(--color-plum); transform: translateY(-4px); }
+  .why-card:hover::after { height: 100%; }
+  .why-card .icon-circle { transition: background-color .4s, color .4s; }
+  .why-card:hover .icon-circle { background: var(--color-plum); color: #fff; }
+  @media (min-width: 640px) { .why-wide { flex-direction: row; align-items: center; justify-content: flex-start; gap: 1.5rem; } }
+
+  .why-photo { position: relative; display: flex; flex-direction: column; min-height: 22rem; overflow: hidden; border-radius: 16px; background: var(--color-plum-section); }
+  @media (min-width: 1024px) { .why-photo { min-height: 0; } }
+  .why-photo-shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgb(0 0 0 / .7) 0%, rgb(0 0 0 / .15) 45%, transparent 70%); }
+</style>

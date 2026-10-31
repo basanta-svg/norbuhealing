@@ -1,0 +1,50 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site, departments } from '../../data/site';
+import Logo from '../ui/Logo.astro';
+import Button from '../ui/Button.astro';
+const brandOf = { healing: 'healing', hotel: 'hotel', salon: 'salon', institute: 'institute' } as const;
+---
+<footer class="bg-plum text-white">
+  <div class="container-site pb-24 pt-16 lg:pb-8 lg:pt-20">
+    <div class="grid gap-14 lg:grid-cols-[0.85fr_1.35fr] lg:gap-16">
+      <!-- brand and how to reach us -->
+      <div>
+        <Logo class="!w-[190px] lg:!w-[220px]" />
+        <p class="serif-quote mt-6 text-[1.9rem] leading-tight text-white">Restore the jewel within.</p>
+        <p class="mt-3 max-w-sm text-white/75">Healing • Beauty • Hospitality • Education in one connected Bhutanese destination.</p>
+        <ul class="mt-7 space-y-4 text-white/90">
+          <li><a href={`mailto:${site.email}`} class="inline-flex items-center gap-3 hover:underline"><Icon name="norbu-email" class="h-5 w-5 shrink-0" />{site.email}</a></li>
+          <li class="flex items-start gap-3"><Icon name="norbu-location" class="mt-0.5 h-5 w-5 shrink-0" />{site.address}</li>
+          <li class="flex items-center gap-3"><Icon name="norbu-hours" class="h-5 w-5 shrink-0" />Open daily {site.hours}</li>
+        </ul>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="/book/" variant="light" arrow>Book now</Button>
+          <Button href={site.directionsUrl} variant="outline" target="_blank" rel="noopener">Get directions</Button>
+        </div>
+      </div>
+
+      <!-- the four departments -->
+      <div>
+        <h3 class="label !text-white/70 !text-[0.75rem]">Our departments</h3>
+        <div class="mt-5 grid gap-4 sm:grid-cols-2">
+          {departments.map((d) => (
+            <div class="flex flex-col rounded-[16px] border border-white/20 p-6 transition-colors hover:border-white/50 hover:bg-white/5">
+              <Logo brand={brandOf[d.key]} link={false} class="!h-12 !w-auto self-start" />
+              <p class="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.95rem] text-white/90">
+                <Icon name="norbu-phone" class="h-5 w-5 shrink-0" />
+                {d.phones.map((p, i) => <><a href={`tel:${p}`} class="font-semibold hover:underline">{p}</a>{i < d.phones.length - 1 && <span class="text-white/40">/</span>}</>)}
+              </p>
+              <a href={d.href} class="link-arrow mt-5 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-white hover:underline">Visit {d.short.toLowerCase()} page <Icon name="norbu-arrow-right" class="h-5 w-5" /></a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-3 border-t border-white/20 pt-6 text-sm text-white/75 md:flex-row md:items-center md:justify-between">
+      <p>© 2026 Norbu Healing. All rights reserved.</p>
+      <p>Website designed and developed by <a href="https://abit.bt" target="_blank" rel="noopener" class="font-semibold text-white underline-offset-4 hover:underline">aBit Private Limited</a></p>
+    </div>
+  </div>
+</footer>

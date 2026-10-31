@@ -1,0 +1,16 @@
+---
+// Brand icon set (Phosphor Light + four custom spa icons, in src/icons). Brand rule for service tiles:
+// the icon sits in a #F5EFF3 circle at about 55% of its diameter. Old template names map onto the Norbu library.
+import { Icon } from 'astro-icon/components';
+const map = {
+  lotus: 'lotus', figure: 'meditation', leaf: 'nature', candle: 'hot-stones', fire: 'fire', sun: 'sunrise', mandala: 'mountains', water: 'water', wind: 'breath',
+  yoga: 'yoga', growth: 'growth', stay: 'stay', hair: 'hair-salon', courses: 'courses', certificate: 'certificate', renewal: 'renewal', wellbeing: 'wellbeing', massage: 'massage',
+} as const;
+interface Props { name: keyof typeof map; class?: string; plain?: boolean }
+const { name, class: cls = '', plain = false } = Astro.props;
+---
+{plain ? (
+  <Icon name={`norbu-${map[name]}`} class={cls || 'h-6 w-6'} aria-hidden="true" />
+) : (
+  <span class:list={['icon-circle', cls]}><Icon name={`norbu-${map[name]}`} aria-hidden="true" /></span>
+)}

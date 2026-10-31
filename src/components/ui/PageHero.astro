@@ -1,0 +1,30 @@
+---
+import Img from './Img.astro';
+interface Props { title: string; image?: string; crumbs?: { label: string; href?: string }[]; subtitle?: string; eyebrow?: string; full?: boolean }
+const { title, image = 'reception', crumbs = [], subtitle, eyebrow, full = false } = Astro.props;
+---
+<section class:list={['relative', full && 'flex min-h-[100svh] flex-col']} aria-labelledby="page-title">
+  <div class="page-hero-bg absolute inset-0 overflow-hidden bg-black">
+    <Img name={image} alt="" class="h-full w-full object-cover" loading="eager" fetchpriority="high" widths={[800, 1280, 1600]} />
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-black/55"></div>
+  </div>
+  <div class:list={['relative z-10 px-6 text-center text-white', full ? 'flex flex-1 flex-col items-center justify-center pb-16 pt-36 lg:pt-44' : 'pb-20 pt-36 lg:pt-44 lg:pb-24']}>
+    {eyebrow && <p class="label hero-eyebrow">{eyebrow}</p>}
+    <h1 id="page-title" class:list={['hero-h1', eyebrow && 'mt-4']}>{title}</h1>
+    {subtitle && <p class="hero-lead">{subtitle}</p>}
+    <div class="mt-7 flex flex-wrap items-center justify-center gap-4 empty:hidden"><slot /></div>
+    <nav aria-label="Breadcrumb" class="mt-8">
+      <ol class="label flex flex-wrap items-center justify-center gap-2 !text-white/80">
+        <li><a href="/" class="hover:text-white">Home</a></li>
+        {crumbs.map((c) => (<li class="flex gap-2"><span aria-hidden="true">/</span>{c.href ? <a href={c.href} class="hover:text-white">{c.label}</a> : <span aria-current="page" class="text-white">{c.label}</span>}</li>))}
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<style is:global>
+  /* the photograph settles in with a slow, smooth zoom when the page opens */
+  .page-hero-bg img { transform-origin: 50% 50%; animation: page-hero-zoom 8s cubic-bezier(.3, .1, .3, 1) both; will-change: transform; }
+  @keyframes page-hero-zoom { from { transform: scale(1.15); } to { transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .page-hero-bg img { animation: none; } }
+</style>

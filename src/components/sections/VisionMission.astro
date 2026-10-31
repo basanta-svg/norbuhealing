@@ -1,0 +1,49 @@
+---
+// Vision and mission: two columns, one on plum and one plain. Text is exactly as provided.
+import { Icon } from 'astro-icon/components';
+import LineIcon from '../ui/LineIcon.astro';
+
+const items = [
+  { label: 'Our vision', icon: 'sun' as const, big: 'norbu-sunrise', tone: 'plum', text: 'To be a trusted Bhutanese destination where people can access wellness, beauty, hospitality and professional learning through one connected brand.' },
+  { label: 'Our mission', icon: 'growth' as const, big: 'norbu-growth', tone: 'plain', text: 'To deliver thoughtful service, professional experiences and opportunities for growth while bringing together Bhutanese inspiration, modern practices and a welcoming approach to care.' },
+];
+---
+<section class="section-pad" aria-label="Vision and mission">
+  <div class="container-site">
+    <div class="vm-split">
+      {items.map((it, i) => (
+        <article class:list={['vm-col reveal', it.tone === 'plum' ? 'vm-col-plum' : 'vm-col-plain']} style={`--d:${i * 140}ms`}>
+          <Icon name={it.big} class="vm-bg-icon" aria-hidden="true" />
+          <LineIcon name={it.icon} class:list={['icon-circle-lg', it.tone === 'plum' && 'icon-circle-on-plum']} />
+          <h2 class="vm-title">{it.label}</h2>
+          <p class="vm-text">{it.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .vm-split { display: grid; max-width: 70rem; margin-inline: auto; overflow: hidden; border: 1px solid var(--color-plum-border); border-radius: 16px; background: #fff; }
+  @media (min-width: 900px) { .vm-split { grid-template-columns: 1fr 1fr; } }
+
+  .vm-col { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem 2.5rem; }
+  @media (min-width: 640px) { .vm-col { padding: 2.75rem 2.5rem 3.25rem; } }
+  @media (min-width: 1024px) { .vm-col { padding: 3.25rem 3.25rem 3.75rem; } }
+
+  /* gradients stay deep behind the text; the huge icon rises from the bottom edge */
+  .vm-col-plum { background: linear-gradient(165deg, #530035 0%, #610b44 45%, #8a4a72 100%); color: #fff; }
+  .vm-col-plain { background: linear-gradient(180deg, #fff 0%, #fbf8fa 45%, #efe2ea 100%); color: #161616; }
+
+  .vm-bg-icon { position: absolute; z-index: -1; right: -4rem; bottom: -8rem; width: 21rem; height: 21rem; pointer-events: none; }
+  @media (min-width: 1024px) { .vm-bg-icon { width: 25rem; height: 25rem; right: -5rem; bottom: -10rem; } }
+  .vm-col-plum .vm-bg-icon { color: #fff; opacity: .11; }
+  .vm-col-plain .vm-bg-icon { color: var(--color-plum); opacity: .075; }
+
+  .vm-title { margin-top: 1.5rem; font-size: .75rem; font-weight: 700; letter-spacing: .4em; text-transform: uppercase; line-height: 1.3; }
+  .vm-col-plum .vm-title { color: rgb(255 255 255 / .85); }
+  .vm-col-plain .vm-title { color: var(--color-plum); }
+
+  .vm-text { margin-top: 1.25rem; max-width: 27rem; font-family: var(--font-body); font-weight: 500; font-size: clamp(1.2rem, .7vw + 1rem, 1.6rem); line-height: 1.5; letter-spacing: -0.005em; }
+  .vm-col-plum .vm-text { color: #fff; }
+</style>

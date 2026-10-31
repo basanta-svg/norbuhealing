@@ -1,0 +1,11 @@
+---
+// Soft botanical branch used as a faint background accent (pure SVG, no image file).
+interface Props { class?: string; flip?: boolean }
+const { class: cls = '', flip = false } = Astro.props;
+---
+<svg class:list={['pointer-events-none absolute text-sage-500', cls]} style={flip ? 'transform:scaleX(-1)' : undefined} viewBox="0 0 200 400" fill="currentColor" aria-hidden="true">
+  <path d="M100 400C98 300 102 200 100 20" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".35" />
+  {[[100, 70, -28, 1], [100, 120, 28, 1.05], [100, 170, -30, 1.1], [100, 220, 30, 1.15], [100, 270, -32, 1.2], [100, 320, 32, 1.25]].map(([x, y, r, s]) => (
+    <path transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`} d="M0 0C14 -14 40 -16 62 -4C44 14 16 16 0 0Z" opacity=".16" />
+  ))}
+</svg>

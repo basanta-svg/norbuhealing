@@ -1,0 +1,51 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import Button from '../components/ui/Button.astro';
+import { site, departments } from '../data/site';
+---
+<BaseLayout title="Contact Norbu Healing" description="Contact the Norbu Healing departments in Changjalu, Olakha, Thimphu, Bhutan for wellness, beauty, accommodation, dining or professional training enquiries.">
+  <PageHero title="Contact Norbu Healing" crumbs={[{ label: 'Contact' }]} image="lobby"
+    subtitle="We’re here to help. Contact the relevant Norbu Healing department for enquiries about wellness, beauty, accommodation, dining or professional training. If you’re not sure where to start, use our shared email address and we’ll help direct your enquiry." />
+  <section class="section-pad">
+    <div class="container-site">
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="card reveal text-center"><span class="icon-circle mx-auto"><Icon name="norbu-location" /></span><p class="label mt-4 text-sage-700">Main address</p><p class="mt-2 font-semibold text-xl text-sage-900">{site.address}</p></div>
+        <div class="card reveal text-center" style="--d:80ms"><span class="icon-circle mx-auto"><Icon name="norbu-email" /></span><p class="label mt-4 text-sage-700">Shared email</p><a href={`mailto:${site.email}`} class="mt-2 block font-semibold text-xl text-sage-900 hover:text-gold-600">{site.email}</a></div>
+        <div class="card reveal text-center" style="--d:160ms"><span class="icon-circle mx-auto"><Icon name="norbu-hours" /></span><p class="label mt-4 text-sage-700">General opening hours</p><p class="mt-2 font-semibold text-xl text-sage-900">{site.hours}</p></div>
+      </div>
+
+      <h2 class="reveal mt-20 text-center">Contact a department</h2>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {departments.map((d, i) => (
+          <div class="card reveal flex flex-col" style={`--d:${i * 80}ms`}>
+            <h3 class="!text-[1.25rem]">{d.name}</h3>
+            <p class="mt-4 flex-1 space-y-1 text-gray-600">{d.phones.map((p) => <a href={`tel:${p}`} class="flex items-center gap-2 hover:text-gold-600"><Icon name="norbu-phone" class="h-4 w-4" />{p}</a>)}</p>
+            <a href={d.href} class="label link-arrow mt-5 text-sage-900 hover:text-gold-600">Visit page <Icon name="norbu-arrow-right" class="h-4 w-4" /></a>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-20 grid gap-12 lg:grid-cols-2">
+        <div class="reveal overflow-hidden rounded-[28px] shadow-card">
+          <iframe title="Map showing Norbu Healing in Changjalu, Olakha, Thimphu" src={site.mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="h-full min-h-[380px] w-full border-0" allowfullscreen></iframe>
+        </div>
+        <div class="reveal">
+          <h2 class="!text-3xl">Send us a message</h2>
+          <form data-form data-kind="contact" data-endpoint={site.formEndpoint || undefined} novalidate class="field-light mt-6 grid gap-5" aria-label="Contact form">
+            <div class="field"><label for="c-name" class="label text-sage-900">Your name*</label><input id="c-name" name="name" required autocomplete="name" class="field-input" /><p class="field-error"></p></div>
+            <div class="field"><label for="c-email" class="label text-sage-900">Email*</label><input id="c-email" name="email" type="email" required autocomplete="email" class="field-input" /><p class="field-error"></p></div>
+            <div class="field">
+              <label for="c-dept" class="label text-sage-900">Department</label>
+              <select id="c-dept" name="department" class="field-input"><option>Not sure</option>{departments.map((d) => <option>{d.name}</option>)}</select><p class="field-error"></p>
+            </div>
+            <div class="field"><label for="c-msg" class="label text-sage-900">Message*</label><textarea id="c-msg" name="message" rows="5" required class="field-input"></textarea><p class="field-error"></p></div>
+            <div><Button type="submit" arrow>Send Message</Button><p class="mt-4 text-sm text-gray-600">Your details are used only to respond to your enquiry.</p><p class="field-error mt-3 !text-base !text-sage-900" data-form-msg role="status" aria-live="polite"></p></div>
+          </form>
+          <p class="mt-6"><Button href={site.directionsUrl} variant="outline-dark" target="_blank" rel="noopener">Get Directions</Button></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

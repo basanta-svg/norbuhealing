@@ -1,0 +1,101 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DivisionAbout from '../components/ui/DivisionAbout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import Button from '../components/ui/Button.astro';
+import Img from '../components/ui/Img.astro';
+import SectionHead from '../components/ui/SectionHead.astro';
+import CheckList from '../components/ui/CheckList.astro';
+import ContactBox from '../components/ui/ContactBox.astro';
+import EnquiryForm from '../components/ui/EnquiryForm.astro';
+import FinalCta from '../components/sections/FinalCta.astro';
+import { rooms, dining, site } from '../data/site';
+const guests = [
+  'Tourists and travellers visiting Thimphu.',
+  'Business visitors seeking accommodation.',
+  'Guests looking for a welcoming and convenient stay.',
+  'Visitors interested in accessing dining, wellness and beauty services within the Norbu Healing ecosystem.',
+];
+// Room details are supplied by the hotel team; until then each card says "please enquire".
+const roomFacts = ['Rate', 'Amenities', 'Occupancy'];
+---
+<BaseLayout exactTitle title="Norbu Healing Hotel | Accommodation & Dining in Thimphu" description="Enquire about accommodation and dining at Norbu Healing Hotel in Changjalu, Olakha, Thimphu, Bhutan. Explore Deluxe Couple and Twin Rooms, the restaurant, bar and Green Cafe.">
+  <PageHero full eyebrow="Norbu Healing Hotel" title="Comfort, Care & Convenience — All in One Place." image="room-couple" crumbs={[{ label: 'Hotel' }]}
+    subtitle="Welcome to Norbu Healing Hotel, a comfortable and welcoming hospitality destination in Changjalu, Olakha, Thimphu. Whether you are visiting Bhutan, travelling for business or looking for a convenient place to stay, our hotel brings accommodation and dining into the wider Norbu Healing experience.">
+    <Button href="#enquire" variant="light" arrow>Enquire About a Stay</Button>
+    <Button href="#dining" variant="outline">Explore Dining</Button>
+  </PageHero>
+
+  <DivisionAbout dept="hotel" id="about-hotel" label="About Norbu Healing Hotel" title="Hospitality within the wider Norbu Healing experience" image="room-desk" imageAlt="A Norbu Healing Hotel guest room" flip primary={["Check availability", "#enquire"]} secondary={["View rooms", "#rooms"]}>
+    <p>Norbu Healing Hotel is part of the Norbu Healing ecosystem, bringing hospitality together with wellness, beauty and professional learning. Guests can enquire about accommodation and dining while discovering other services available within the wider brand.</p>
+    <p>Our aim is to offer a welcoming experience with clear information, convenient enquiries and thoughtful service.</p>
+  </DivisionAbout>
+
+  <section id="rooms" class="wash-sage scroll-mt-24 section-pad" aria-labelledby="rooms-title">
+    <div class="container-site">
+      <SectionHead center id="rooms-title" label="Accommodation" title="Our rooms" lead="Room rates, availability and amenities are confirmed directly by the hotel team." />
+      <div class="mt-14 grid gap-8 lg:grid-cols-2">
+        {rooms.map((r, i) => (
+          <article class="reveal overflow-hidden rounded-[24px] bg-white shadow-card" style={`--d:${i * 100}ms`}>
+            <div class="img-zoom aspect-[16/10] overflow-hidden"><Img name={r.image} alt={`${r.title}`} class="h-full w-full object-cover" sizes="(min-width:1024px) 620px, 100vw" /></div>
+            <div class="p-8">
+              <h3>{r.title}</h3>
+              <p class="mt-3 text-gray-600">{r.text}</p>
+              <dl class="mt-6 divide-y divide-sage-900/10 text-[0.92rem]">
+                {roomFacts.map((f) => <div class="flex justify-between gap-4 py-2.5"><dt class="label !text-[0.68rem] text-sage-700">{f}</dt><dd class="text-gray-600">Please enquire</dd></div>)}
+              </dl>
+              <div class="mt-6 flex flex-wrap gap-4">
+                <Button href={`/hotel/?room=${encodeURIComponent(r.title)}#enquire`} variant="outline-dark" class="!px-5">Check Availability</Button>
+                <Button href={`/hotel/?room=${encodeURIComponent(r.title)}#enquire`} class="!px-5">Enquire / Book Now</Button>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="dining" class="scroll-mt-24 section-pad" aria-labelledby="dining-title">
+    <div class="container-site">
+      <SectionHead center id="dining-title" label="Dining at Norbu Healing" title="Restaurant, bar & Green Cafe" />
+      <div class="mt-14 grid gap-8 lg:grid-cols-3">
+        {dining.map((d, i) => (
+          <article class="reveal flex flex-col" style={`--d:${i * 100}ms`}>
+            <div class:list={['img-zoom aspect-[4/3] overflow-hidden rounded-[24px]', i === 0 && 'rounded-tl-[80px]', i === 2 && 'rounded-br-[80px]']}><Img name={d.image} alt={`${d.title}`} class="h-full w-full object-cover" sizes="(min-width:1024px) 400px, 100vw" /></div>
+            <h3 class="mt-6">{d.title}</h3>
+            <p class="mt-3 text-gray-600">{d.text}</p>
+            {d.note && <p class="mt-3 text-[0.92rem] text-gray-600">{d.note}</p>}
+            <div class="mt-6"><Button href={d.href} variant="outline-dark" arrow class="!px-5">{d.cta}</Button></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="wash-sage section-pad" aria-labelledby="stay-title">
+    <div class="container-site grid gap-10 lg:grid-cols-2 lg:gap-20">
+      <SectionHead id="stay-title" label="Guests" title="Who should stay?" />
+      <div class="reveal"><CheckList items={guests} /></div>
+    </div>
+  </section>
+
+  <section id="enquire" class="wash-ivory scroll-mt-24 section-pad" aria-labelledby="enquire-title">
+    <div class="container-site grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
+      <div>
+        <SectionHead id="enquire-title" label="Hotel booking enquiry" title="Check availability" lead="A short, mobile-friendly form. Your request is subject to confirmation by the hotel team." />
+        <div class="reveal mt-8"><ContactBox dept="hotel" cta="Get Directions" ctaHref={site.directionsUrl} /></div>
+        <p class="reveal mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-sage-900"><a class="link-arrow underline-offset-4 hover:underline" href="#dining">Restaurant</a><a class="underline-offset-4 hover:underline" href="#dining">Bar</a><a class="underline-offset-4 hover:underline" href="#dining">Green Cafe</a></p>
+      </div>
+      <div class="reveal rounded-[28px] bg-white p-6 shadow-card sm:p-10">
+        <EnquiryForm kind="hotel" light />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad pt-0 lg:pt-0" aria-label="Map">
+    <div class="container-site"><div class="reveal overflow-hidden rounded-[28px] shadow-card"><iframe title="Map showing Norbu Healing in Changjalu, Olakha, Thimphu" src={site.mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="h-[380px] w-full border-0" allowfullscreen></iframe></div></div>
+  </section>
+
+  <FinalCta />
+</BaseLayout>

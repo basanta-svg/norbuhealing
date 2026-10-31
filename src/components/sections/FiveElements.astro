@@ -1,0 +1,45 @@
+---
+import { Icon } from 'astro-icon/components';
+import LineIcon from '../ui/LineIcon.astro';
+import SectionHead from '../ui/SectionHead.astro';
+import { elements } from '../../data/site';
+interface Props { lead?: string }
+const bigIcon: Record<string, string> = { figure: 'norbu-meditation', mandala: 'norbu-mountains', fire: 'norbu-fire', water: 'norbu-water', wind: 'norbu-breath' };
+const { lead = 'Our wellness philosophy draws inspiration from the five elements — Space, Earth, Fire, Water and Wind. These elements provide a thoughtful framework for considering balance, connection and well-being, informed by Bhutanese traditions and presented through a modern, client-centred approach.' } = Astro.props;
+---
+<section class="wash-sage section-pad" aria-labelledby="elements-title">
+  <div class="container-site max-w-[1200px]">
+    <SectionHead center id="elements-title" label="The Five Elements" title="Space, Earth, Fire, Water & Wind" lead={lead} />
+    <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+      {elements.map((e, i) => (
+        <article class="element-card group reveal" style={`--d:${i * 80}ms`}>
+          <Icon name={bigIcon[e.icon]} class="element-bg" aria-hidden="true" />
+          <span class="element-halo"><LineIcon name={e.icon} class="icon-circle-lg element-icon" /></span>
+          <h3>{e.name}</h3>
+          <p>{e.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .element-card {
+    position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; align-items: center; text-align: center;
+    padding: 2.25rem 1.25rem 2.75rem; border: 1px solid var(--color-plum-border); border-radius: 16px;
+    background: #fff;
+    transition: border-color .5s, transform .6s cubic-bezier(.22, 1, .36, 1), background-color .5s;
+  }
+  .element-card:hover { border-color: var(--color-plum); transform: translateY(-6px); }
+  /* a huge, very light copy of the icon rises from the bottom */
+  .element-bg { position: absolute; z-index: -1; left: 50%; bottom: -5.5rem; width: 10rem; height: 10rem; translate: -50% 0; color: var(--color-plum); opacity: .05; pointer-events: none; transition: opacity .6s, transform .8s cubic-bezier(.22, 1, .36, 1); }
+  .element-card:hover .element-bg { opacity: .08; transform: translateY(-.5rem); }
+  /* a thin ring around the icon circle */
+  .element-halo { display: inline-flex; padding: .4rem; border: 1px solid var(--color-plum-border); border-radius: 999px; transition: border-color .5s; }
+  .element-card:hover .element-halo { border-color: var(--color-plum); }
+  .element-icon { transition: background-color .5s, color .5s; }
+  .element-card:hover .element-icon { background: var(--color-plum) !important; color: #fff; }
+  .element-icon svg { width: 58%; height: 58%; }
+  .element-card h3 { margin-top: 1.5rem; }
+  .element-card p { margin-top: .5rem; max-width: 14rem; font-size: .95rem; line-height: 1.55; font-weight: 500; color: #1a1a1a; }
+</style>

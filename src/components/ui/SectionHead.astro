@@ -1,0 +1,9 @@
+---
+interface Props { label?: string; title: string; lead?: string; center?: boolean; light?: boolean; id?: string }
+const { label, title, lead, center = false, light = false, id } = Astro.props;
+---
+<div class:list={[center && 'mx-auto text-center', 'max-w-3xl']}>
+  {label && <p class:list={['label reveal', light ? '!text-white/80' : 'text-gold-600']}>{label}</p>}
+  <h2 id={id} class:list={['reveal', label && 'mt-4', light && '!text-white']} style="--d:80ms">{title}</h2>
+  {lead && <p class:list={['reveal mt-5 text-[1.02rem]', light ? 'text-white/80' : 'text-gray-600']} style="--d:140ms">{lead}</p>}
+</div>

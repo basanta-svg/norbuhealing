@@ -1,0 +1,434 @@
+{
+  "hero-arch-left": {
+    "file": "src/assets/images/hero-arch-left.jpg",
+    "alt": "A woman holding a standing yoga pose outdoors",
+    "photographer": "BameSanah88",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Revolved_Yogi.jpg",
+    "title": "File:Revolved Yogi.jpg"
+  },
+  "hero-arch-center": {
+    "file": "src/assets/images/hero-arch-center.jpg",
+    "alt": "A figure meditating in lotus pose (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "hero-arch-right": {
+    "file": "src/assets/images/hero-arch-right.jpg",
+    "alt": "A figure in tree pose (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "studio-group-yoga": {
+    "file": "src/assets/images/studio-group-yoga.jpg",
+    "alt": "A group practising yoga together in a studio",
+    "photographer": "Yogacharya Rajendra",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Group_Photo_After_yoga_Class.jpg",
+    "title": "File:Group Photo After yoga Class.jpg"
+  },
+  "values-hands-mudra": {
+    "file": "src/assets/images/values-hands-mudra.jpg",
+    "alt": "Hands resting in a meditation mudra",
+    "photographer": "Yulem",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Gyana_(jnana)_mudra_and_rudraksha.jpg",
+    "title": "File:Gyana (jnana) mudra and rudraksha.jpg"
+  },
+  "values-tall": {
+    "file": "src/assets/images/values-tall.jpg",
+    "alt": "A yogi practising on a mountain ridge at sunrise",
+    "photographer": "Ferdiehappyyoga",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Ferdie_Happy_Yoga_1_-_Happy_Yoga.jpg",
+    "title": "File:Ferdie Happy Yoga 1 - Happy Yoga.jpg"
+  },
+  "values-interior": {
+    "file": "src/assets/images/values-interior.jpg",
+    "alt": "A quiet meditation hall (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "service-private": {
+    "file": "src/assets/images/service-private.jpg",
+    "alt": "An instructor guiding a student one to one",
+    "photographer": "Kaethe17",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Kopfstand-im-seil-iyengar-yoga-2020.jpg",
+    "title": "File:Kopfstand-im-seil-iyengar-yoga-2020.jpg"
+  },
+  "service-beginners": {
+    "file": "src/assets/images/service-beginners.jpg",
+    "alt": "Beginners learning yoga basics in a class",
+    "photographer": "Pfc. Cayce Nevers",
+    "source": "Wikimedia Commons",
+    "license": "Public domain",
+    "url": "https://commons.wikimedia.org/wiki/File:USMC-110114-M-3244N-028.jpg",
+    "title": "File:USMC-110114-M-3244N-028.jpg"
+  },
+  "service-breathwork": {
+    "file": "src/assets/images/service-breathwork.jpg",
+    "alt": "A figure practising breathwork (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "service-sound-bowl": {
+    "file": "src/assets/images/service-sound-bowl.jpg",
+    "alt": "A Tibetan singing bowl used for sound healing",
+    "photographer": "Marko Kafé",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Singing_bowl_of_%22La_Gendroni%C3%A9re%22.jpg",
+    "title": "File:Singing bowl of \"La Gendroniére\".jpg"
+  },
+  "service-herbal": {
+    "file": "src/assets/images/service-herbal.jpg",
+    "alt": "Himalayan herbs for herbal therapy (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "why-us-arch": {
+    "file": "src/assets/images/why-us-arch.jpg",
+    "alt": "A calm yoga teacher (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "video-banner": {
+    "file": "src/assets/images/video-banner.jpg",
+    "alt": "Two people practising yoga in a sunlit studio (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "event-wellness": {
+    "file": "src/assets/images/event-wellness.jpg",
+    "alt": "An evening wellness gathering",
+    "photographer": "Dominic Deusdedith",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Health_and_wellness_Yoga_practice_at_sunset.jpg",
+    "title": "File:Health and wellness Yoga practice at sunset.jpg"
+  },
+  "event-sunset": {
+    "file": "src/assets/images/event-sunset.jpg",
+    "alt": "Yoga practice at sunset",
+    "photographer": "Dennis Yang from San Francisco, CA, USA",
+    "source": "Wikimedia Commons",
+    "license": "CC BY 2.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Yoga_at_Sunset.jpg",
+    "title": "File:Yoga at Sunset.jpg"
+  },
+  "event-sound": {
+    "file": "src/assets/images/event-sound.jpg",
+    "alt": "A sound bath with healing bowls (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "event-retreat": {
+    "file": "src/assets/images/event-retreat.jpg",
+    "alt": "A group on a meditation retreat (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "booking-warrior": {
+    "file": "src/assets/images/booking-warrior.jpg",
+    "alt": "Two people in warrior pose",
+    "photographer": "Jarek Tuszyński",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Joshua_Tree_yoga_-_warrior_1b.jpg",
+    "title": "File:Joshua Tree yoga - warrior 1b.jpg"
+  },
+  "testimonial-video-1": {
+    "file": "src/assets/images/testimonial-video-1.jpg",
+    "alt": "A woman meditating at home",
+    "photographer": "Nagesh Jayaraman from Chennai, India",
+    "source": "Wikimedia Commons",
+    "license": "CC BY 2.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Woman_meditating_in_a_yoga_pose.jpg",
+    "title": "File:Woman meditating in a yoga pose.jpg"
+  },
+  "testimonial-video-2": {
+    "file": "src/assets/images/testimonial-video-2.jpg",
+    "alt": "Hands pressed together in namaste (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "blog-tea": {
+    "file": "src/assets/images/blog-tea.jpg",
+    "alt": "A mindful cup of tea (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "blog-journal": {
+    "file": "src/assets/images/blog-journal.jpg",
+    "alt": "A journal open beside a pen",
+    "photographer": "David Schwarzenberg",
+    "source": "Wikimedia Commons",
+    "license": "CC0",
+    "url": "https://commons.wikimedia.org/wiki/File:A_journal_writing_book.jpg",
+    "title": "File:A journal writing book.jpg"
+  },
+  "blog-bhutan-flags": {
+    "file": "src/assets/images/blog-bhutan-flags.jpg",
+    "alt": "Prayer flags (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "blog-himalaya": {
+    "file": "src/assets/images/blog-himalaya.jpg",
+    "alt": "Calm mountains at dawn (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "blog-mat": {
+    "file": "src/assets/images/blog-mat.jpg",
+    "alt": "A rolled yoga mat (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "blog-back": {
+    "file": "src/assets/images/blog-back.jpg",
+    "alt": "A yogi seen from behind (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "insta-1": {
+    "file": "src/assets/images/insta-1.jpg",
+    "alt": "A yoga pose in a white studio (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "insta-2": {
+    "file": "src/assets/images/insta-2.jpg",
+    "alt": "A calm spa corner (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "insta-3": {
+    "file": "src/assets/images/insta-3.jpg",
+    "alt": "A lotus flower",
+    "photographer": "Subhrajyoti07",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Nelumbo_nucifera,_also_known_as_Indian_lotus_in_bud_stage_(Image_7_of_7).jpg",
+    "title": "File:Nelumbo nucifera, also known as Indian lotus in bud stage (Image 7 of 7).jpg"
+  },
+  "insta-5": {
+    "file": "src/assets/images/insta-5.jpg",
+    "alt": "Candles and stones arranged for meditation (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "footer-bg": {
+    "file": "src/assets/images/footer-bg.jpg",
+    "alt": "A dark, calm spa interior (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "about-team-1": {
+    "file": "src/assets/images/about-team-1.jpg",
+    "alt": "Portrait of a yoga instructor",
+    "photographer": "Kaethe17",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Schulterstand-mit-stuhl-iyengar-yoga-2020.jpg",
+    "title": "File:Schulterstand-mit-stuhl-iyengar-yoga-2020.jpg"
+  },
+  "about-team-2": {
+    "file": "src/assets/images/about-team-2.jpg",
+    "alt": "Portrait placeholder for a meditation teacher",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "about-team-3": {
+    "file": "src/assets/images/about-team-3.jpg",
+    "alt": "Portrait placeholder for a healer",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "about-story": {
+    "file": "src/assets/images/about-story.jpg",
+    "alt": "The Norbu Healing studio (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "avatar-1": {
+    "file": "src/assets/images/avatar-1.jpg",
+    "alt": "Instructor portrait placeholder",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "avatar-2": {
+    "file": "src/assets/images/avatar-2.jpg",
+    "alt": "Instructor portrait placeholder",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "avatar-4": {
+    "file": "src/assets/images/avatar-4.jpg",
+    "alt": "Instructor portrait placeholder",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "hero-studio-interior": {
+    "file": "src/assets/images/hero-studio-interior.jpg",
+    "alt": "A calm, warmly lit yoga studio (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "service-vinyasa": {
+    "file": "src/assets/images/service-vinyasa.jpg",
+    "alt": "A figure flowing through a vinyasa sequence (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "service-restorative": {
+    "file": "src/assets/images/service-restorative.jpg",
+    "alt": "A restorative pose on a bolster (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "service-prenatal": {
+    "file": "src/assets/images/service-prenatal.jpg",
+    "alt": "A gentle prenatal yoga pose (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "why-us-frame": {
+    "file": "src/assets/images/why-us-frame.jpg",
+    "alt": "A person meditating in soft light (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "insta-4": {
+    "file": "src/assets/images/insta-4.jpg",
+    "alt": "A dzong in Thimphu (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "about-team-4": {
+    "file": "src/assets/images/about-team-4.jpg",
+    "alt": "Portrait placeholder for a Himalayan healer",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "avatar-3": {
+    "file": "src/assets/images/avatar-3.jpg",
+    "alt": "Instructor portrait placeholder",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  },
+  "hero-main": {
+    "file": "src/assets/images/hero-main.jpg",
+    "alt": "A calm spa treatment room (placeholder illustration)",
+    "photographer": "Generated for Norbu Healing",
+    "source": "Placeholder illustration",
+    "license": "Original work",
+    "url": "",
+    "note": "Replace with a real photo of the same filename."
+  }
+}

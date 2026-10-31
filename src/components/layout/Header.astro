@@ -1,0 +1,104 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site } from '../../data/site';
+import Logo from '../ui/Logo.astro';
+import Button from '../ui/Button.astro';
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const bar = [
+  { label: 'Home', href: '/', icon: 'norbu-lotus' },
+  { label: 'Explore', href: '#', icon: 'norbu-menu', menu: true },
+  { label: 'Book', href: '/book/', icon: 'norbu-booking' },
+  { label: 'Contact', href: '/contact/', icon: 'norbu-phone' },
+];
+---
+<header id="site-header" class="fixed inset-x-0 top-0 z-50" data-scrolled="false">
+  <div class="header-bar bg-white text-plum shadow-[0_6px_30px_rgb(83_0_53/0.12)] transition-all duration-500">
+    <div class="container-site flex items-center justify-between gap-4 py-3">
+    <div class="header-logo shrink-0"><Logo class="logo-on-dark" /><Logo variant="colour" class="logo-on-light" /></div>
+
+    <nav aria-label="Primary" class="hidden items-center gap-6 xl:flex">
+      {site.nav.map((item) => (
+        <a href={item.href} class:list={['nav-link label !tracking-[0.12em] py-3', isActive(item.href) && 'is-active']} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="flex items-center justify-end gap-3">
+      <button type="button" data-search-open aria-label="Search the website" aria-haspopup="dialog" class="social-dot flex h-10 w-10 items-center justify-center rounded-full border border-plum-border transition hover:bg-plum-section"><Icon name="norbu-search" class="h-5 w-5" /></button>
+      <Button href="/book/" variant="light" class="header-cta hidden !px-6 !py-4 sm:inline-flex">Book Now</Button>
+      <button type="button" id="menu-open" class="flex h-11 w-11 items-center justify-center rounded-full border border-plum-border xl:hidden" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <Icon name="norbu-menu" class="h-5 w-5" />
+      </button>
+    </div>
+  </div>
+  </div>
+</header>
+
+<div id="mobile-menu" class="invisible fixed inset-0 z-[60] xl:hidden" aria-hidden="true">
+  <div data-menu-backdrop class="absolute inset-0 bg-black/45 opacity-0"></div>
+  <aside class="absolute right-0 top-0 flex h-full w-[min(88vw,380px)] flex-col overflow-y-auto bg-white p-6 text-plum" role="dialog" aria-label="Menu">
+    <div class="mb-6 flex items-center justify-between">
+      <Logo variant="colour" />
+      <button type="button" data-menu-close class="flex h-10 w-10 items-center justify-center rounded-full border border-plum-border" aria-label="Close menu"><Icon name="norbu-close" class="h-5 w-5" /></button>
+    </div>
+    <nav aria-label="Mobile">
+      <ul class="divide-y divide-plum-border">
+        {site.nav.map((item) => (
+          <li><a href={item.href} class="block py-4 text-lg font-semibold" aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+        <li><button type="button" data-search-open class="block w-full py-4 text-left text-lg font-semibold">Search</button></li>
+      </ul>
+    </nav>
+    <div class="mt-8 space-y-2 text-sm text-gray-600">
+      <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      <p>{site.address}</p>
+      <p>{site.hours}</p>
+    </div>
+    <Button href="/book/" class="mt-6">Book Now</Button>
+  </aside>
+</div>
+
+<nav aria-label="Quick actions" class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-plum-border bg-white pb-[env(safe-area-inset-bottom)] text-plum xl:hidden">
+  {bar.map((b) => b.menu ? (
+    <button type="button" data-menu-open class="flex flex-col items-center gap-1 py-2.5"><Icon name={b.icon} class="h-5 w-5" /><span class="label !text-[0.62rem]">{b.label}</span></button>
+  ) : (
+    <a href={b.href} class:list={['flex flex-col items-center gap-1 py-2.5', b.label === 'Book' && 'bg-white text-plum']} aria-current={isActive(b.href) && b.href !== '/' ? 'page' : undefined}><Icon name={b.icon} class="h-5 w-5" /><span class="label !text-[0.62rem]">{b.label}</span></a>
+  ))}
+</nav>
+
+<style is:global>
+  /* an underline draws in from the left on hover and stays under the current page */
+  .nav-link { position: relative; }
+  .nav-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: .35rem; height: 2px; background: currentColor; transform: scaleX(0); transform-origin: left center; transition: transform .45s cubic-bezier(.22, 1, .36, 1); }
+  .nav-link:hover::after, .nav-link:focus-visible::after, .nav-link.is-active::after { transform: scaleX(1); }
+  .nav-link:not(:hover):not(.is-active)::after { transform-origin: right center; }
+  #site-header[data-scrolled='true'] .header-bar {
+    background: #fff; color: var(--color-plum); border-radius: 0; backdrop-filter: none;
+    box-shadow: 0 6px 30px rgb(83 0 53 / 0.14);
+  }
+  #site-header .logo-on-dark { display: none; }
+  #site-header .logo-on-light { display: inline-flex; }
+  #site-header .header-cta { background: var(--color-plum); border-color: var(--color-plum); color: #fff; }
+  #site-header .social-dot, #site-header #menu-open { border-color: rgb(83 0 53 / 0.3); }
+  #site-header .social-dot:hover { background: var(--color-plum-section); }
+  /* the menu glides in from the right, the page behind softly blurs, and the links arrive one after another */
+  #mobile-menu { transition: visibility 0s linear .65s; }
+  #mobile-menu.open { visibility: visible; transition-delay: 0s; }
+  #mobile-menu [data-menu-backdrop] { transition: opacity .65s cubic-bezier(.22, 1, .36, 1), backdrop-filter .65s ease; backdrop-filter: blur(0); }
+  #mobile-menu.open [data-menu-backdrop] { opacity: 1; backdrop-filter: blur(5px); }
+  #mobile-menu aside { transform: translateX(104%); transition: transform .65s cubic-bezier(.22, 1, .36, 1); box-shadow: -20px 0 60px rgb(0 0 0 / 0.18); }
+  #mobile-menu.open aside { transform: none; }
+  #mobile-menu aside nav li, #mobile-menu aside > div:not(:first-child), #mobile-menu aside > a {
+    opacity: 0; transform: translateX(26px); transition: opacity .35s ease, transform .35s ease;
+  }
+  #mobile-menu.open aside nav li, #mobile-menu.open aside > div:not(:first-child), #mobile-menu.open aside > a {
+    opacity: 1; transform: none; transition: opacity .7s ease, transform .8s cubic-bezier(.22, 1, .36, 1); transition-delay: calc(.2s + var(--n, 0) * .06s);
+  }
+  #mobile-menu aside nav li:nth-child(1) { --n: 0; } #mobile-menu aside nav li:nth-child(2) { --n: 1; } #mobile-menu aside nav li:nth-child(3) { --n: 2; }
+  #mobile-menu aside nav li:nth-child(4) { --n: 3; } #mobile-menu aside nav li:nth-child(5) { --n: 4; } #mobile-menu aside nav li:nth-child(6) { --n: 5; }
+  #mobile-menu aside nav li:nth-child(7) { --n: 6; } #mobile-menu aside nav li:nth-child(8) { --n: 7; } #mobile-menu aside nav li:nth-child(9) { --n: 8; }
+  #mobile-menu aside > div:not(:first-child) { --n: 9; } #mobile-menu aside > a { --n: 10; }
+  @media (prefers-reduced-motion: reduce) {
+    #mobile-menu, #mobile-menu * { transition-duration: .01s !important; transition-delay: 0s !important; }
+  }
+</style>
